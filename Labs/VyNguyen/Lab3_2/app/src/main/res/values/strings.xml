@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lab3_2</string>
+    <string name="defaultName">Hamburger</string>
+    <string name="buttonName">ADD FOOD</string>
+    <string name="decideButtonName">DECIDE!</string>
+    <string name="hint">add new food...</string>
+</resources>
