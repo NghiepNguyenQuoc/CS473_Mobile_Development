@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="withText"
+        android:title="@string/action_settings"/>
+    <item
+        android:id="@+id/search"
+        android:actionViewClass="android.widget.SearchView"
+        android:layout_width="match_parent"
+        android:icon="@drawable/ic_action_search"
+        android:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/voice"
+        android:icon="@drawable/ic_action_microphone"
+        android:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_fav_press"
+        android:showAsAction="ifRoom|withText"/>
+
+</menu>
