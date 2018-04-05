@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Lession5</string>
+    <string-array name="arr_beauty_list">
+        <item>Shampoo</item>
+        <item>Conditioner</item>
+        <item>Styling Products</item>
+        <item>Moisturizers</item>
+        <item>Cleansers</item>
+        <item>Treatments</item>
+        <item>Body Cleansing</item>
+        <item>Body Moisturizer</item>
+        <item>Hand Moisturizer</item>
+        <item>Makeup Gift Sets</item>
+        <item>Fragrance Gift Sets</item>
+        <item>Bath and Body</item>
+    </string-array>
+</resources>
