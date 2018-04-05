@@ -1,7 +1,7 @@
 package com.nghiepnguyen.lession4;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +20,7 @@ public class ShoppingCategory extends AppCompatActivity {
         beautyView = findViewById(R.id.beauty_view);
         foodView = findViewById(R.id.food_view);
         account_textview = findViewById(R.id.account_textview);
-        account_textview.setText(getIntent().getStringExtra("account"));
+        account_textview.setText("Welcome " + getIntent().getExtras().getString("account"));
 
         electronicView.setOnClickListener(new View.OnClickListener() {
             @Override

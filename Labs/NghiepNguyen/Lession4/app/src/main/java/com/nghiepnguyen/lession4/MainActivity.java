@@ -16,7 +16,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private final int REQUEST_CODE_CREATE_ACCOUNT = 1001;
     private EditText email_edittext, password_edittext;
-    private TextView forgot_password_textview, dont_have_account_textview, create_new_account_textview;
+    private TextView forgot_password_textview, create_new_account_textview;
     private Button signin_button;
 
     private List<User> userList = new ArrayList<>();
@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         email_edittext = findViewById(R.id.email_edittext);
         password_edittext = findViewById(R.id.password_edittext);
         forgot_password_textview = findViewById(R.id.forgot_password_textview);
-        dont_have_account_textview = findViewById(R.id.dont_have_account_textview);
         create_new_account_textview = findViewById(R.id.create_new_account_textview);
         signin_button = findViewById(R.id.signin_button);
 
@@ -54,18 +53,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.signin_button:
                 if (TextUtils.isEmpty(email_edittext.getText()) || TextUtils.isEmpty(password_edittext.getText()))
-                    Toast.makeText(MainActivity.this, "Email and password can not blank!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Email and password can not beblank!!!", Toast.LENGTH_LONG).show();
                 else {
-                    for (User user : userList) {
-                        if (user.getPassword().equals(password_edittext.getText().toString())
-                                && user.getEmail().equals(email_edittext.getText().toString())) {
-                            Intent intent = new Intent(MainActivity.this, ShoppingCategory.class);
-                            intent.putExtra("account", email_edittext.getText());
-                            startActivity(intent);
-                            return;
-                        }
-                    }
-                    Toast.makeText(MainActivity.this, "Your account is not exist!!!", Toast.LENGTH_LONG).show();
+                    User user = new User(email_edittext.getText().toString(), password_edittext.getText().toString());
+                    if (userList.contains(user)) {
+                        Intent intent = new Intent(MainActivity.this, ShoppingCategory.class);
+                        intent.putExtra("account", email_edittext.getText().toString());
+                        startActivity(intent);
+                    } else
+                        Toast.makeText(MainActivity.this, "Your account is not exist!!!", Toast.LENGTH_LONG).show();
 
                 }
                 break;

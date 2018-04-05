@@ -31,7 +31,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                         TextUtils.isEmpty(lastname_edittext.getText()) ||
                         TextUtils.isEmpty(email_edittext.getText()) ||
                         TextUtils.isEmpty(password_edittext.getText()))
-                    Toast.makeText(CreateAccountActivity.this, "All fiels must not blank!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateAccountActivity.this, "All fiels must not be blank!!!", Toast.LENGTH_LONG).show();
                 else {
                     Toast.makeText(CreateAccountActivity.this, "Account created successfully!!!", Toast.LENGTH_LONG).show();
 

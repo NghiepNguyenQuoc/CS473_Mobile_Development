@@ -47,7 +47,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_border"
-                    android:padding="5dp" />
+                    android:padding="5dp"
+                    android:text="nghiepnguyen@gmail.com" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -62,7 +63,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_border"
                     android:inputType="textPassword"
-                    android:padding="5dp" />
+                    android:padding="5dp"
+                    android:text="123456" />
 
                 <TextView
                     android:id="@+id/forgot_password_textview"
@@ -105,7 +107,6 @@
                     android:background="@android:color/darker_gray" />
 
                 <TextView
-                    android:id="@+id/dont_have_account_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
