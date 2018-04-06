@@ -30,6 +30,6 @@
         android:layout_height="40dp"
         android:layout_weight="1"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_sound" />
+        android:src="@android:drawable/ic_delete" />
 
 </LinearLayout>

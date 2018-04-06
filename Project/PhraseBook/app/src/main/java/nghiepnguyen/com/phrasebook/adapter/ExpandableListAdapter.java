@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 import nghiepnguyen.com.phrasebook.R;
-import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Phrase;
 import nghiepnguyen.com.phrasebook.model.PhraseDAO;
 
@@ -33,7 +32,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<Phrase> laptops;
     public int lastExpandedGroupPosition;
     PhraseDAO phraseDAO = null;
-    private DatabaseHelper helper;
     private OnLongClickListener onlonglist;
 
     public ExpandableListAdapter(Activity context, List<Phrase> laptops,
@@ -42,9 +40,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
         this.onlonglist = onlongclick;
-
-        helper = new DatabaseHelper(this.context, "data", null, 1);
-        this.phraseDAO = new PhraseDAO(null, null, null, 1);
+        this.phraseDAO = PhraseDAO.getInstance(context);
     }
 
     public Object getChild(int groupPosition, int childPosition) {
@@ -141,7 +137,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         favorite.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                helper.open();
                 if (laptopName.getNumber() == 1) {
                     phraseDAO.UpdatePhrase(0, laptopName.getId());
                     laptopName.setNumber(0);
@@ -151,7 +146,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     laptopName.setNumber(1);
                     favorite.setImageResource(R.mipmap.ic_fav);
                 }
-                helper.close();
             }
         });
         return convertView;

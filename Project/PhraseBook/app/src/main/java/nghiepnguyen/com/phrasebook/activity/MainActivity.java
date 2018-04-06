@@ -1,45 +1,44 @@
-package nghiepnguyen.com.phrasebook;
+package nghiepnguyen.com.phrasebook.activity;
 
-import android.app.ActionBar;
-import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import nghiepnguyen.com.phrasebook.activity.PhraseActivity;
+import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.adapter.CustomListViewAdapter;
 import nghiepnguyen.com.phrasebook.model.Category;
-import nghiepnguyen.com.phrasebook.model.CategoryDAO;
 import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity implements OnItemClickListener {
 
     ListView listView;
     List<Category> rowItems;
-    CategoryDAO categoryDAO = null;
-    private DatabaseHelper helper;
 
     public static final String VALUE_CATEGORY = "";
 
     String[] actions = new String[]{"Vietnamese", "Chinese", "Japanese",
             "Korea",};
+    private DatabaseHelper databaseHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ArrayAdapter<String> adaptermenu = new ArrayAdapter<String>(
+        databaseHelper = new DatabaseHelper(this);
+        /*ArrayAdapter<String> adaptermenu = new ArrayAdapter<String>(
                 getBaseContext(), R.layout.drop_item, actions);
         getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         getActionBar().setTitle("");
@@ -73,15 +72,17 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         };
 
         getActionBar().setListNavigationCallbacks(adaptermenu,
-                navigationListener);
+                navigationListener);*/
 
-        helper = new DatabaseHelper(this, "data", null, 1);
-        helper.open();
-        this.categoryDAO = new CategoryDAO(null, null, null, 1);
+
+        File database = getApplicationContext().getDatabasePath(DatabaseHelper.DATABASE_NAME);
+        if (database.exists() == false) {
+            databaseHelper.getReadableDatabase();
+            copyDatabase();
+        }
 
         rowItems = new ArrayList<Category>();
-        rowItems = categoryDAO.GetAllCategory();
-        helper.close();
+        rowItems = databaseHelper.GetAllCategory();
 
         listView = (ListView) findViewById(R.id.list);
         CustomListViewAdapter adapter = new CustomListViewAdapter(this,
@@ -104,5 +105,22 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     public boolean onCreateOptionsMenu(Menu menu) {
         // TODO Auto-generated method stub
         return super.onCreateOptionsMenu(menu);
+    }
+
+    public void copyDatabase() {
+        try {
+            InputStream inputStream = getAssets().open(DatabaseHelper.DATABASE_NAME);
+            String outFileName = DatabaseHelper.DBLOCATION + DatabaseHelper.DATABASE_NAME;
+            OutputStream outputStream = new FileOutputStream(outFileName);
+            byte[] buff = new byte[1024];
+            int lenght = 0;
+            while ((lenght = inputStream.read(buff)) > 0) {
+                outputStream.write(buff, 0, lenght);
+            }
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

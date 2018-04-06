@@ -21,12 +21,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import nghiepnguyen.com.phrasebook.MainActivity;
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.adapter.ExpandableListAdapter;
-import nghiepnguyen.com.phrasebook.model.Category;
-import nghiepnguyen.com.phrasebook.model.CategoryDAO;
-import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Phrase;
 import nghiepnguyen.com.phrasebook.model.PhraseDAO;
 
@@ -39,8 +35,6 @@ public class PhraseActivity extends Activity implements
 
     int valueCategory;
     PhraseDAO phraseDAO = null;
-    CategoryDAO categoryDAO = null;
-    private DatabaseHelper helper;
 
     private SearchView mSearchView;
 
@@ -60,9 +54,7 @@ public class PhraseActivity extends Activity implements
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayUseLogoEnabled(false);
 
-        helper = new DatabaseHelper(this, "data", null, 1);
-        this.phraseDAO = new PhraseDAO(null, null, null, 1);
-        this.categoryDAO = new CategoryDAO(null, null, null, 1);
+        this.phraseDAO = PhraseDAO.getInstance(this);
 
         createGroupList();
         createCollection();
@@ -73,7 +65,6 @@ public class PhraseActivity extends Activity implements
     }
 
     private void createGroupList() {
-        helper.open();
         phraseList = new ArrayList<Phrase>();
         List<Phrase> listTemp = phraseDAO.GetAllPhraseOfCategory(valueCategory);
         for (Phrase item : listTemp) {
@@ -92,10 +83,9 @@ public class PhraseActivity extends Activity implements
     }
 
     private String GetNameCategoryById(int id) {
-        helper.open();
-        Category category = categoryDAO.getNameById(id);
-        helper.close();
-        return category.getNamecategory();
+//        Category category = categoryDAO.getNameById(id);
+//        return cat-egory.getNamecategory();
+        return null;
     }
 
     OnLongClickListener onlongclick = new OnLongClickListener() {
@@ -169,7 +159,6 @@ public class PhraseActivity extends Activity implements
 
     public boolean onQueryTextChange(String newText) {
         // Toast.makeText(this, newText, Toast.LENGTH_SHORT).show();
-        helper.open();
         phraseList = new ArrayList<Phrase>();
         List<Phrase> listTemp = phraseDAO.GetAllPhraseOfCategoryByName(
                 valueCategory, newText);
@@ -202,7 +191,6 @@ public class PhraseActivity extends Activity implements
                 startVoiceRecognitionActivity();
                 break;
             case R.id.favorite:
-                helper.open();
                 phraseList = new ArrayList<Phrase>();
                 List<Phrase> listTemp = phraseDAO.GetAllPhraseFavoriteOfCategory();
                 for (Phrase item1 : listTemp) {
@@ -244,7 +232,6 @@ public class PhraseActivity extends Activity implements
             Toast.makeText(this, "You said:\" " + matches.get(0) + " \"",
                     Toast.LENGTH_LONG).show();
 
-            helper.open();
             phraseList = new ArrayList<Phrase>();
             List<Phrase> listTemp = phraseDAO.GetAllPhraseOfCategoryByName(
                     valueCategory, matches.get(0));

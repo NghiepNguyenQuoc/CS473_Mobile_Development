@@ -3,20 +3,37 @@ package nghiepnguyen.com.phrasebook.model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
 
-public class PhraseDAO extends DatabaseHelper {
+public class PhraseDAO {
     public static final String KEY_NUMBER = "NUMBER";
-    public static final int ONE = 1;
-    public static final int ZERO = 0;
+    private SQLiteOpenHelper openHelper;
+    private SQLiteDatabase database;
+    private static PhraseDAO instance;
 
-    public PhraseDAO(Context context, String name, CursorFactory factory,
-                     int version) {
-        super(context, name, factory, version);
-        // TODO Auto-generated constructor stub
+    public PhraseDAO(Context context) {
+        this.openHelper = new DatabaseHelper(context);
+    }
+
+    public static PhraseDAO getInstance(Context context) {
+        if (instance == null) {
+            instance = new PhraseDAO(context);
+        }
+        return instance;
+    }
+
+    public void open() {
+        this.database = openHelper.getWritableDatabase();
+    }
+
+    public void close() {
+        if (database != null) {
+            this.database.close();
+        }
     }
 
     // @Override
@@ -66,7 +83,7 @@ public class PhraseDAO extends DatabaseHelper {
         try {
             String strSQL = "SELECT *" + " FROM PHRASE WHERE IDCATEGORY="
                     + value;
-            Cursor cursor = DatabaseHelper.mDatabase.rawQuery(strSQL, null);
+            Cursor cursor = database.rawQuery(strSQL, null);
             {
                 while (cursor.moveToNext()) {
                     Phrase phrase = (Phrase) getDataRowFromDataReader(cursor);
@@ -84,7 +101,7 @@ public class PhraseDAO extends DatabaseHelper {
         try {
             String strSQL = "SELECT *" + " FROM PHRASE WHERE IDCATEGORY="
                     + value + " AND PHRASE LIKE '%" + query + "%'";
-            Cursor cursor = DatabaseHelper.mDatabase.rawQuery(strSQL, null);
+            Cursor cursor = database.rawQuery(strSQL, null);
             {
                 while (cursor.moveToNext()) {
                     Phrase phrase = (Phrase) getDataRowFromDataReader(cursor);
@@ -101,7 +118,7 @@ public class PhraseDAO extends DatabaseHelper {
         ArrayList<Phrase> lstPhrase = new ArrayList<Phrase>();
         try {
             String strSQL = "SELECT *" + " FROM PHRASE WHERE NUMBER=1";
-            Cursor cursor = DatabaseHelper.mDatabase.rawQuery(strSQL, null);
+            Cursor cursor = database.rawQuery(strSQL, null);
             {
                 while (cursor.moveToNext()) {
                     Phrase phrase = (Phrase) getDataRowFromDataReader(cursor);
@@ -117,12 +134,12 @@ public class PhraseDAO extends DatabaseHelper {
     public void UpdatePhrase(int number, int id) {
         try {
             /*String strSQL="Update Phrase set number="+number+" Where id="+id;
-			Log.d("THONG BAO", strSQL);
+            Log.d("THONG BAO", strSQL);
 			DatabaseHelper.mDatabase.rawQuery(strSQL, null);*/
             ContentValues phare = new ContentValues();
             phare.put(KEY_NUMBER, number);
             Log.d("THONG BAO", phare + "");
-            DatabaseHelper.mDatabase.update("PHRASE", phare, "ID=" + id, null);
+            database.update("PHRASE", phare, "ID=" + id, null);
         } catch (Exception ex) {
         }
     }

@@ -47,11 +47,11 @@ public class CustomListViewAdapter extends ArrayAdapter<Category> {
 
         // holder.txtDesc.setText(rowItem.getDescription());
         holder.txtTitle.setText(rowItem.getNamecategory());
-        holder.imageView.setImageDrawable(this.context.getResources()
+        /*holder.imageView.setImageDrawable(this.context.getResources()
                 .getDrawable(
                         this.context.getResources().getIdentifier(
                                 "drawable/" + rowItem.getImg(), "drawable",
-                                this.context.getPackageName())));
+                                this.context.getPackageName())));*/
 
         return convertView;
     }
