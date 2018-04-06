@@ -41,7 +41,7 @@ public class ShoppingCategory extends AppCompatActivity implements View.OnClickL
                 else if (tab.getText().equals("Food"))
                     onClickAction(R.id.food_view);
                 else if (tab.getText().equals("Logout")) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ShoppingCategory.this);
                     builder.setTitle("");
                     builder.setMessage("Do you want to Exit");
                     AlertDialog.OnClickListener clickListener = new AlertDialog.OnClickListener() {
@@ -57,7 +57,7 @@ public class ShoppingCategory extends AppCompatActivity implements View.OnClickL
                         }
                     };
                     builder.setPositiveButton("Yes", clickListener);
-                    builder.setPositiveButton("No", clickListener);
+                    builder.setNegativeButton("No", clickListener);
                     builder.show();
                 }
             }
@@ -73,11 +73,11 @@ public class ShoppingCategory extends AppCompatActivity implements View.OnClickL
             }
         };
 
-        aBar.addTab(aBar.newTab().setText("Electronic").setTabListener(listener));
-        aBar.addTab(aBar.newTab().setText("Clothing").setTabListener(listener));
-        aBar.addTab(aBar.newTab().setText("Beauty").setTabListener(listener));
-        aBar.addTab(aBar.newTab().setText("Food").setTabListener(listener));
-        aBar.addTab(aBar.newTab().setText("Logout").setTabListener(listener));
+        aBar.addTab(aBar.newTab().setText("Electronic").setTabListener(listener),false);
+        aBar.addTab(aBar.newTab().setText("Clothing").setTabListener(listener),false);
+        aBar.addTab(aBar.newTab().setText("Beauty").setTabListener(listener),false);
+        aBar.addTab(aBar.newTab().setText("Food").setTabListener(listener),false);
+        aBar.addTab(aBar.newTab().setText("Logout").setTabListener(listener),false);
 
         /*set on click action*/
         electronicView.setOnClickListener(this);
