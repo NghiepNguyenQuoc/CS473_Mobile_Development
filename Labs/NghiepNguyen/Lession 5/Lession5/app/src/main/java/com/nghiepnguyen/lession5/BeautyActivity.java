@@ -1,6 +1,7 @@
 package com.nghiepnguyen.lession5;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,8 @@ public class BeautyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beauty);
+        ActionBar aBar = getSupportActionBar();
+        aBar.setTitle("Beauty Category");
 
         Spinner beauty_spinner = findViewById(R.id.beauty_spinner);
         beauty_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -1,6 +1,7 @@
 package com.nghiepnguyen.lession5;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,8 @@ public class FoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+        ActionBar aBar = getSupportActionBar();
+        aBar.setTitle("Food Category");
 
         ListView clothingListview = findViewById(R.id.food_listview);
         String[] values = getResources().getStringArray(R.array.arr_food);

@@ -1,8 +1,8 @@
 package com.nghiepnguyen.lession5;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Intent intent = new Intent(MainActivity.this, ShoppingCategory.class);
                         intent.putExtra("account", email_edittext.getText().toString());
                         startActivity(intent);
+                        finish();
                     } else
                         Toast.makeText(MainActivity.this, "Your account is not exist!!!", Toast.LENGTH_LONG).show();
 
