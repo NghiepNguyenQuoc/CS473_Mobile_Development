@@ -27,7 +27,8 @@ public class ShoppingCategory extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ShoppingCategory.this, "You have chosen the Electronic category of shopping", Toast.LENGTH_LONG).show();
-
+                Intent intent=new Intent(getApplicationContext(),ElectronicActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -36,6 +37,8 @@ public class ShoppingCategory extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(ShoppingCategory.this, "You have chosen the Clothing category of shopping", Toast.LENGTH_LONG).show();
 
+                Intent intent = new Intent(getApplicationContext(), ClothingActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -44,7 +47,7 @@ public class ShoppingCategory extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(ShoppingCategory.this, "You have chosen the Beauty category of shopping", Toast.LENGTH_LONG).show();
 
-                Intent intent=new Intent(getApplicationContext(),BeautyActivity.class);
+                Intent intent = new Intent(getApplicationContext(), BeautyActivity.class);
                 startActivity(intent);
             }
         });
@@ -53,6 +56,9 @@ public class ShoppingCategory extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ShoppingCategory.this, "You have chosen the Food category of shopping", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getApplicationContext(), FoodActivity.class);
+                startActivity(intent);
             }
         });
     }

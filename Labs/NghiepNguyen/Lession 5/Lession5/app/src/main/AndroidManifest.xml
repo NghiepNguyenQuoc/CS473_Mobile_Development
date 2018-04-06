@@ -18,7 +18,10 @@
         </activity>
         <activity android:name=".ShoppingCategory" />
         <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".BeautyActivity"></activity>
+        <activity android:name=".BeautyActivity" />
+        <activity android:name=".ClothingActivity" />
+        <activity android:name=".ElectronicActivity" />
+        <activity android:name=".ElectronicDetailActivity"></activity>
     </application>
 
 </manifest>
