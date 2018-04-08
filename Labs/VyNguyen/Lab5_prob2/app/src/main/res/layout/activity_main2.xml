@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context=".Main2Activity">-->
+
+<!--</android.support.constraint.ConstraintLayout>-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:elevation="4dp"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.ActionBar"
+        android:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/electricToolBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Electronics"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/clothingToolBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Clothing"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/beautyToolBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Beauty"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/foodToolBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Food"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/logoutToolBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Logout"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:onClick="exitClick"/>
+
+    </Toolbar>
+
+    <TextView
+        android:id="@+id/welcomUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginEnd="30dp"
+        android:text="welcome"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/categoriesName"
+        android:textSize="12pt" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TableRow>
+            <ImageView
+                android:id="@+id/electronics"
+                android:src="@drawable/ledtv"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="130dp"
+                android:clickable="true"
+                android:onClick="onClick"/>
+
+            <ImageView
+                android:id="@+id/clothing"
+                android:src="@drawable/jacket"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="130dp"
+                android:clickable="true"
+                android:onClick="onClick"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:text="@string/electronic"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:text="@string/clothing"/>
+        </TableRow>
+
+        <TableRow android:layout_marginTop="50dp">
+            <ImageView
+                android:id="@+id/beauty"
+                android:src="@drawable/lipstick"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="130dp"
+                android:clickable="true"
+                android:onClick="onClick"/>
+
+            <ImageView
+                android:id="@+id/food"
+                android:src="@drawable/foodbag"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="130dp"
+                android:clickable="true"
+                android:onClick="onClick"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:text="@string/beauty"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:text="@string/food"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

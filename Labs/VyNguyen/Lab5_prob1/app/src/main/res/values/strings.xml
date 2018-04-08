@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Lab5_prob1</string>
+    <string name="messageChoose">Choose your movie</string>
+    <string-array name="movies">
+        <item>Notebook</item>
+        <item>Avenger</item>
+        <item>X-men</item>
+        <item>Thor</item>
+        <item>Spider Man</item>
+        <item>Captain America</item>
+        <item>Super Man</item>
+        <item>Iron Man</item>
+        <item>Huk</item>
+    </string-array>
+</resources>

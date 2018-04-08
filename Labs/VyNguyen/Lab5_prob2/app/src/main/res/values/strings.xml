@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Walmart</string>
+    <string name="welcomeString">Sign in to your account</string>
+    <string name="emailAddressString">Email address (required)</string>
+    <string name="passwordString">Password (required)</string>
+    <string name="forgotPasswordString">Forgot Password?</string>
+    <string name="signInButton">Sign In</string>
+    <string name="questionAccount">Don\'t have an account?</string>
+    <string name="createAccountButton">Create a new account</string>
+    <string name="categoriesName">Shop by Categories</string>
+    <string name="electronic">Electronics</string>
+    <string name="clothing">Clothing</string>
+    <string name="beauty">Beauty</string>
+    <string name="food">Food</string>
+    <string name="createAccountString">Create your account</string>
+    <string name="firstName">First name*</string>
+    <string name="lastName">Last name*</string>
+    <string name="email">Email address*</string>
+    <string name="password">Password*</string>
+    <string name="createAccButton">Create Account</string>
+    <string name="beautyCategory">Select your beauty item</string>
+
+    <string-array name="beauties">
+        <item>Foundation</item>
+        <item>Primer</item>
+        <item>Blush</item>
+        <item>Eye Liner</item>
+        <item>Lip stick</item>
+        <item>Contour</item>
+        <item>High light</item>
+        <item>Eye brown</item>
+    </string-array>
+    <string name="clothingCategory">Select your clothing item</string>
+    <string name="foodCategory">Select your food item</string>
+    <string name="electronicCategory">Select your electronic item</string>
+</resources>
