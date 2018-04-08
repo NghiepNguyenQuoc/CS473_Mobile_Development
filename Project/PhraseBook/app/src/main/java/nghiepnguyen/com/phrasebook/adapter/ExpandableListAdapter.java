@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,17 +22,17 @@ import java.util.List;
 import java.util.Map;
 
 import nghiepnguyen.com.phrasebook.R;
+import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Phrase;
-import nghiepnguyen.com.phrasebook.model.PhraseDAO;
 
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
-
+    private final String TAG = ExpandableListAdapter.class.getSimpleName();
     private Activity context;
     private Map<Phrase, List<Phrase>> laptopCollections;
     private List<Phrase> laptops;
-    public int lastExpandedGroupPosition;
-    PhraseDAO phraseDAO = null;
+    private int lastExpandedGroupPosition;
+    private DatabaseHelper databaseHelper;
     private OnLongClickListener onlonglist;
 
     public ExpandableListAdapter(Activity context, List<Phrase> laptops,
@@ -40,7 +41,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
         this.onlonglist = onlongclick;
-        this.phraseDAO = PhraseDAO.getInstance(context);
+        databaseHelper = new DatabaseHelper(context);
     }
 
     public Object getChild(int groupPosition, int childPosition) {
@@ -58,21 +59,21 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         LayoutInflater inflater = context.getLayoutInflater();
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.child_item, null);
+            convertView = inflater.inflate(R.layout.item_expandable, null);
         }
         convertView.setBackgroundColor(Color.parseColor("#c9c8c8"));
-        TextView item = (TextView) convertView.findViewById(R.id.laptop);
-        TextView item2 = (TextView) convertView.findViewById(R.id.laptop2);
+        TextView item = convertView.findViewById(R.id.translate_textview);
+        TextView item2 = convertView.findViewById(R.id.spelling_textview);
         item2.setTextColor(Color.parseColor("#a69348"));
-        ImageView delete = (ImageView) convertView.findViewById(R.id.delete);
-        delete.setOnClickListener(new OnClickListener() {
+        ImageView playSoundButton = convertView.findViewById(R.id.sound_button);
+        playSoundButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 try {
-                    MediaPlayer mp = new MediaPlayer();
+                    MediaPlayer mp;
                     List<Phrase> child = laptopCollections.get(laptops
                             .get(groupPosition));
                     Uri uri = Uri
-                            .parse("android.resource://com.example.phrasebook/raw/"
+                            .parse("android.resource://nghiepnguyen.com.phrasebook/raw/"
                                     + child.get(childPosition).getSound()
                                     + "_m");
                     mp = MediaPlayer.create(context, uri);
@@ -84,7 +85,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     });
                     mp.start();
                 } catch (Exception e) {
-                    // TODO: handle exception
+                    Log.e(TAG, "Can not play the sound");
                 }
             }
         });
@@ -123,28 +124,26 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.group_item, null);
         }
-        TextView item = (TextView) convertView.findViewById(R.id.laptop);
-
+        TextView item = convertView.findViewById(R.id.source_textview);
         item.setTypeface(null, Typeface.BOLD);
         item.setText(laptopName.getPhrase());
 
-        final ImageView favorite = (ImageView) convertView
-                .findViewById(R.id.favorite);
+        final ImageView favorite = convertView.findViewById(R.id.favorite);
         if (laptopName.getNumber() == 1)
-            favorite.setImageResource(R.mipmap.ic_fav);
+            favorite.setImageResource(R.drawable.ic_fav);
         else
-            favorite.setImageResource(R.mipmap.ic_fav_press);
+            favorite.setImageResource(R.drawable.ic_fav_press);
 
         favorite.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (laptopName.getNumber() == 1) {
-                    phraseDAO.UpdatePhrase(0, laptopName.getId());
+                    databaseHelper.UpdatePhrase(0, laptopName.getId());
                     laptopName.setNumber(0);
-                    favorite.setImageResource(R.mipmap.ic_fav_press);
+                    favorite.setImageResource(R.drawable.ic_fav_press);
                 } else {
-                    phraseDAO.UpdatePhrase(1, laptopName.getId());
+                    databaseHelper.UpdatePhrase(1, laptopName.getId());
                     laptopName.setNumber(1);
-                    favorite.setImageResource(R.mipmap.ic_fav);
+                    favorite.setImageResource(R.drawable.ic_fav);
                 }
             }
         });
@@ -155,8 +154,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public void onGroupExpanded(int groupPosition) {
         // TODO Auto-generated method stub
         super.onGroupExpanded(groupPosition);
-        ExpandableListView elw = (ExpandableListView) context
-                .findViewById(R.id.laptop_list);
+        ExpandableListView elw = context.findViewById(R.id.laptop_list);
         if (groupPosition != lastExpandedGroupPosition) {
             elw.collapseGroup(lastExpandedGroupPosition);
         }
