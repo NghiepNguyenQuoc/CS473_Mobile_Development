@@ -10,7 +10,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="70dp"
-        android:src="@mipmap/im_search" />
+        android:src="@drawable/im_search" />
 
     <TextView
         android:id="@+id/textView1"

@@ -12,24 +12,25 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/laptop"
+            android:id="@+id/translate_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical" />
 
         <TextView
-            android:id="@+id/laptop2"
+            android:id="@+id/spelling_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
+        android:id="@+id/sound_button"
+        android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:contentDescription="@string/app_name"
-        android:src="@android:drawable/ic_delete" />
+        android:src="@drawable/ic_sound" />
 
 </LinearLayout>
