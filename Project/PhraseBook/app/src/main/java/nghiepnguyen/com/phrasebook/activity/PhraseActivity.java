@@ -1,12 +1,12 @@
 package nghiepnguyen.com.phrasebook.activity;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,18 +23,18 @@ import java.util.Map;
 
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.adapter.ExpandableListAdapter;
+import nghiepnguyen.com.phrasebook.model.Category;
+import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Phrase;
-import nghiepnguyen.com.phrasebook.model.PhraseDAO;
 
-public class PhraseActivity extends Activity implements
-        SearchView.OnQueryTextListener {
-    List<Phrase> phraseList;// Danh sach cac danh muc cha
-    List<Phrase> childList;// Danh sach cac danh muc con cua cha
+public class PhraseActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+    List<Phrase> phraseList;
+    List<Phrase> childList;
     Map<Phrase, List<Phrase>> laptopCollection;
-    ExpandableListView expListView;// Listview mo rong
+    ExpandableListView expListView;
 
     int valueCategory;
-    PhraseDAO phraseDAO = null;
+    DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
     private SearchView mSearchView;
 
@@ -48,13 +48,11 @@ public class PhraseActivity extends Activity implements
         Bundle extras = getIntent().getExtras();
         valueCategory = extras.getInt(MainActivity.VALUE_CATEGORY);
 
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayUseLogoEnabled(false);
-
-        this.phraseDAO = PhraseDAO.getInstance(this);
 
         createGroupList();
         createCollection();
@@ -65,27 +63,25 @@ public class PhraseActivity extends Activity implements
     }
 
     private void createGroupList() {
-        phraseList = new ArrayList<Phrase>();
-        List<Phrase> listTemp = phraseDAO.GetAllPhraseOfCategory(valueCategory);
+        phraseList = new ArrayList<>();
+        List<Phrase> listTemp = databaseHelper.GetAllPhraseOfCategory(valueCategory);
         for (Phrase item : listTemp) {
             phraseList.add(item);
         }
-        phraseDAO.close();
     }
 
     private void createCollection() {
-        laptopCollection = new LinkedHashMap<Phrase, List<Phrase>>();
+        laptopCollection = new LinkedHashMap<>();
         for (Phrase item : phraseList) {
-            childList = new ArrayList<Phrase>();
+            childList = new ArrayList<>();
             childList.add(item);
             laptopCollection.put(item, childList);
         }
     }
 
     private String GetNameCategoryById(int id) {
-//        Category category = categoryDAO.getNameById(id);
-//        return cat-egory.getNamecategory();
-        return null;
+        Category category = databaseHelper.getNameById(id);
+        return category.getNamecategory();
     }
 
     OnLongClickListener onlongclick = new OnLongClickListener() {
@@ -107,7 +103,7 @@ public class PhraseActivity extends Activity implements
     private void fillDataToListView() {
         if (phraseList.size() > 0) {
             setContentView(R.layout.activity_phrase);
-            expListView = (ExpandableListView) findViewById(R.id.laptop_list);
+            expListView = findViewById(R.id.laptop_list);
             final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(
                     this, phraseList, laptopCollection, onlongclick);
             expListView.setAdapter(expListAdapter);
@@ -136,13 +132,11 @@ public class PhraseActivity extends Activity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.phrase_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
         mSearchView = (SearchView) searchItem.getActionView();
         setupSearchView(searchItem);
-
         return true;
-
     }
 
     private void setupSearchView(MenuItem searchItem) {
@@ -160,12 +154,11 @@ public class PhraseActivity extends Activity implements
     public boolean onQueryTextChange(String newText) {
         // Toast.makeText(this, newText, Toast.LENGTH_SHORT).show();
         phraseList = new ArrayList<Phrase>();
-        List<Phrase> listTemp = phraseDAO.GetAllPhraseOfCategoryByName(
+        List<Phrase> listTemp = databaseHelper.GetAllPhraseOfCategoryByName(
                 valueCategory, newText);
         for (Phrase item : listTemp) {
             phraseList.add(item);
         }
-        phraseDAO.close();
         createCollection();
         fillDataToListView();
         return false;
@@ -192,11 +185,10 @@ public class PhraseActivity extends Activity implements
                 break;
             case R.id.favorite:
                 phraseList = new ArrayList<Phrase>();
-                List<Phrase> listTemp = phraseDAO.GetAllPhraseFavoriteOfCategory();
+                List<Phrase> listTemp = databaseHelper.GetAllPhraseFavoriteOfCategory();
                 for (Phrase item1 : listTemp) {
                     phraseList.add(item1);
                 }
-                phraseDAO.close();
                 createCollection();
                 fillDataToListView();
                 break;
@@ -232,17 +224,15 @@ public class PhraseActivity extends Activity implements
             Toast.makeText(this, "You said:\" " + matches.get(0) + " \"",
                     Toast.LENGTH_LONG).show();
 
-            phraseList = new ArrayList<Phrase>();
-            List<Phrase> listTemp = phraseDAO.GetAllPhraseOfCategoryByName(
+            phraseList = new ArrayList<>();
+            List<Phrase> listTemp = databaseHelper.GetAllPhraseOfCategoryByName(
                     valueCategory, matches.get(0));
             for (Phrase item : listTemp) {
                 phraseList.add(item);
             }
-            phraseDAO.close();
             createCollection();
             fillDataToListView();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 }
