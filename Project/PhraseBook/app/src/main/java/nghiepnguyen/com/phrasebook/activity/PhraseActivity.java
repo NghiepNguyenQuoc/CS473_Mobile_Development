@@ -1,8 +1,6 @@
 package nghiepnguyen.com.phrasebook.activity;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBar;
@@ -24,6 +22,7 @@ import java.util.Map;
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.adapter.ExpandableListAdapter;
 import nghiepnguyen.com.phrasebook.model.Category;
+import nghiepnguyen.com.phrasebook.model.Constants;
 import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Phrase;
 
@@ -32,12 +31,10 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
     List<Phrase> childList;
     Map<Phrase, List<Phrase>> laptopCollection;
     ExpandableListView expListView;
-
     int valueCategory;
-    DatabaseHelper databaseHelper = new DatabaseHelper(this);
-
+    DatabaseHelper databaseHelper;
     private SearchView mSearchView;
-
+    private String databaseName;
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 
     @Override
@@ -47,6 +44,8 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
 
         Bundle extras = getIntent().getExtras();
         valueCategory = extras.getInt(MainActivity.VALUE_CATEGORY);
+        databaseName = extras.getString(Constants.BUNDLE_DATABASE);
+        databaseHelper = new DatabaseHelper(this, databaseName);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -58,16 +57,13 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
         createCollection();
 
         fillDataToListView();
-        SpeechToText();
         actionBar.setTitle(GetNameCategoryById(valueCategory));
     }
 
     private void createGroupList() {
         phraseList = new ArrayList<>();
         List<Phrase> listTemp = databaseHelper.GetAllPhraseOfCategory(valueCategory);
-        for (Phrase item : listTemp) {
-            phraseList.add(item);
-        }
+        phraseList.addAll(listTemp);
     }
 
     private void createCollection() {
@@ -104,8 +100,7 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
         if (phraseList.size() > 0) {
             setContentView(R.layout.activity_phrase);
             expListView = findViewById(R.id.laptop_list);
-            final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(
-                    this, phraseList, laptopCollection, onlongclick);
+            final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(this, phraseList, laptopCollection, onlongclick,databaseName);
             expListView.setAdapter(expListAdapter);
             expListView.setOnChildClickListener(new OnChildClickListener() {
                 public boolean onChildClick(ExpandableListView parent, View v,
@@ -121,17 +116,8 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
         }
     }
 
-    // Convert pixel to dip
-    public int getDipsFromPixel(float pixels) {
-        // Get the screen's density scale
-        final float scale = getResources().getDisplayMetrics().density;
-        // Convert the dps to pixels, based on density scale
-        return (int) (pixels * scale + 0.5f);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.phrase_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
         mSearchView = (SearchView) searchItem.getActionView();
@@ -140,25 +126,20 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
     }
 
     private void setupSearchView(MenuItem searchItem) {
-
         if (isAlwaysExpanded()) {
             mSearchView.setIconifiedByDefault(false);
         } else {
             mSearchView.setQueryHint("Search for phrase");
             searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-            // | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
         }
         mSearchView.setOnQueryTextListener(this);
     }
 
     public boolean onQueryTextChange(String newText) {
-        // Toast.makeText(this, newText, Toast.LENGTH_SHORT).show();
-        phraseList = new ArrayList<Phrase>();
+        phraseList = new ArrayList<>();
         List<Phrase> listTemp = databaseHelper.GetAllPhraseOfCategoryByName(
                 valueCategory, newText);
-        for (Phrase item : listTemp) {
-            phraseList.add(item);
-        }
+        phraseList.addAll(listTemp);
         createCollection();
         fillDataToListView();
         return false;
@@ -184,11 +165,9 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
                 startVoiceRecognitionActivity();
                 break;
             case R.id.favorite:
-                phraseList = new ArrayList<Phrase>();
+                phraseList = new ArrayList<>();
                 List<Phrase> listTemp = databaseHelper.GetAllPhraseFavoriteOfCategory();
-                for (Phrase item1 : listTemp) {
-                    phraseList.add(item1);
-                }
+                phraseList.addAll(listTemp);
                 createCollection();
                 fillDataToListView();
                 break;
@@ -200,7 +179,6 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
     }
 
     private void startVoiceRecognitionActivity() {
-        // TODO Auto-generated method stub
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -209,12 +187,7 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
         startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
     }
 
-    private void SpeechToText() {
-        PackageManager pm = getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(
-                RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-    }
-
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == VOICE_RECOGNITION_REQUEST_CODE
                 && resultCode == RESULT_OK) {
@@ -227,9 +200,7 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
             phraseList = new ArrayList<>();
             List<Phrase> listTemp = databaseHelper.GetAllPhraseOfCategoryByName(
                     valueCategory, matches.get(0));
-            for (Phrase item : listTemp) {
-                phraseList.add(item);
-            }
+            phraseList.addAll(listTemp);
             createCollection();
             fillDataToListView();
         }

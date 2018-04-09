@@ -10,16 +10,16 @@ import java.util.ArrayList;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "phrasebookVN.sqlite";
-    public static final String DBLOCATION = "/data/data/nghiepnguyen.com.phrasebook/databases/";
     private static final int DATABASE_VERSION = 1;
+    private static final String KEY_NUMBER = "NUMBER";
     private SQLiteDatabase mDatabase;
     private Context mContext;
-    public static final String KEY_NUMBER = "NUMBER";
+    private String databaseName;
 
-    public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    public DatabaseHelper(Context context, String databaseName) {
+        super(context, databaseName, null, DATABASE_VERSION);
         mContext = context;
+        this.databaseName = databaseName;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void openDatabase() {
-        String dbPath = mContext.getDatabasePath(DATABASE_NAME).getPath();
+        String dbPath = mContext.getDatabasePath(databaseName).getPath();
         if (mDatabase != null && mDatabase.isOpen()) {
             return;
         }

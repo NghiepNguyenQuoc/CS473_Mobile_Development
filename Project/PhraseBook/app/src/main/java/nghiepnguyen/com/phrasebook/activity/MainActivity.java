@@ -1,42 +1,28 @@
 package nghiepnguyen.com.phrasebook.activity;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
 
 import nghiepnguyen.com.phrasebook.R;
-import nghiepnguyen.com.phrasebook.adapter.CategoryAdapter;
-import nghiepnguyen.com.phrasebook.model.Category;
-import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
+import nghiepnguyen.com.phrasebook.model.Constants;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String VALUE_CATEGORY="VALUE_CATEGORY";
+    public static final String VALUE_CATEGORY = "VALUE_CATEGORY";
+    public Fragment fragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        File database = getApplicationContext().getDatabasePath(DatabaseHelper.DATABASE_NAME);
-        if (!database.exists()) {
-            databaseHelper.getReadableDatabase();
-            copyDatabase();
-        }
-
-        List<Category> rowItems = databaseHelper.GetAllCategory();
-        ListView listView = findViewById(R.id.list);
-        CategoryAdapter adapter = new CategoryAdapter(this, rowItems);
-        listView.setAdapter(adapter);
+        fragment = new PhraseFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.BUNDLE_DATABASE, Constants.DATABASE_VN_NAME);
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
     }
 
     @Override
@@ -48,41 +34,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        PackageManager pm = getPackageManager();
-        Intent intent;
+        Bundle bundle = new Bundle();
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()) {
             case R.id.vietnamese_item:
+                bundle.putString(Constants.BUNDLE_DATABASE, Constants.DATABASE_VN_NAME);
                 break;
             case R.id.chinese_item:
-                intent = pm.getLaunchIntentForPackage("com.example.phrasebooktq");
-                startActivity(intent);
+                bundle.putString(Constants.BUNDLE_DATABASE, Constants.DATABASE_TQ_NAME);
                 break;
             case R.id.japanese_item:
-                intent = pm.getLaunchIntentForPackage("com.example.phrasebookjp");
-                startActivity(intent);
+                bundle.putString(Constants.BUNDLE_DATABASE, Constants.DATABASE_NB_NAME);
                 break;
             case R.id.korean_item:
-                intent = pm.getLaunchIntentForPackage("com.example.phrasebookhq");
-                startActivity(intent);
+                bundle.putString(Constants.BUNDLE_DATABASE, Constants.DATABASE_HQ_NAME);
                 break;
         }
+        fragment.setArguments(bundle);
+        fragment = getSupportFragmentManager().findFragmentByTag("fragment");
+        ft.detach(fragment);
+        ft.attach(fragment);
+        ft.commit();
         return true;
-    }
-
-    public void copyDatabase() {
-        try {
-            InputStream inputStream = getAssets().open(DatabaseHelper.DATABASE_NAME);
-            String outFileName = DatabaseHelper.DBLOCATION + DatabaseHelper.DATABASE_NAME;
-            OutputStream outputStream = new FileOutputStream(outFileName);
-            byte[] buff = new byte[1024];
-            int lenght;
-            while ((lenght = inputStream.read(buff)) > 0) {
-                outputStream.write(buff, 0, lenght);
-            }
-            outputStream.flush();
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

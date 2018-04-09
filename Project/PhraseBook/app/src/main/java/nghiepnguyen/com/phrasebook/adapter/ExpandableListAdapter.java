@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import nghiepnguyen.com.phrasebook.R;
+import nghiepnguyen.com.phrasebook.model.Constants;
 import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Phrase;
 
@@ -34,14 +35,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private int lastExpandedGroupPosition;
     private DatabaseHelper databaseHelper;
     private OnLongClickListener onlonglist;
+    private String databaseName;
 
     public ExpandableListAdapter(Activity context, List<Phrase> laptops,
-                                 Map<Phrase, List<Phrase>> laptopCollections, OnLongClickListener onlongclick) {
+                                 Map<Phrase, List<Phrase>> laptopCollections, OnLongClickListener onlongclick, String databaseName) {
         this.context = context;
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
         this.onlonglist = onlongclick;
-        databaseHelper = new DatabaseHelper(context);
+        this.databaseName = databaseName;
+        databaseHelper = new DatabaseHelper(context, databaseName);
     }
 
     public Object getChild(int groupPosition, int childPosition) {
@@ -69,13 +72,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         playSoundButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 try {
+                    String language = null;
+                    if (databaseName.equals(Constants.DATABASE_VN_NAME))
+                        language = Constants.VIETNAMESE;
+                    else if (databaseName.equals(Constants.DATABASE_HQ_NAME))
+                        language = Constants.KOREAN;
+                    else if (databaseName.equals(Constants.DATABASE_NB_NAME))
+                        language = Constants.JAPANESE;
+                    else if (databaseName.equals(Constants.DATABASE_TQ_NAME))
+                        language = Constants.CHINESE;
+
                     MediaPlayer mp;
-                    List<Phrase> child = laptopCollections.get(laptops
-                            .get(groupPosition));
-                    Uri uri = Uri
-                            .parse("android.resource://nghiepnguyen.com.phrasebook/raw/"
-                                    + child.get(childPosition).getSound()
-                                    + "_m");
+                    List<Phrase> child = laptopCollections.get(laptops.get(groupPosition));
+                    Uri uri = Uri.parse("android.resource://nghiepnguyen.com.phrasebook/raw/vietnamese"  + child.get(childPosition).getSound() + "_m");
                     mp = MediaPlayer.create(context, uri);
                     mp.setOnCompletionListener(new OnCompletionListener() {
                         @Override
