@@ -15,10 +15,12 @@ import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.activity.MainActivity;
 import nghiepnguyen.com.phrasebook.activity.PhraseActivity;
 import nghiepnguyen.com.phrasebook.model.Category;
+import nghiepnguyen.com.phrasebook.model.Constants;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private Context context;
     private List<Category> categoryList;
+    private String databaseName;
 
     class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -32,9 +34,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    public CategoryAdapter(Context context, List<Category> categoryList) {
+    public CategoryAdapter(Context context, List<Category> categoryList, String databaseName) {
         this.context = context;
         this.categoryList = categoryList;
+        this.databaseName = databaseName;
     }
 
     @Override
@@ -56,6 +59,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PhraseActivity.class);
+                intent.putExtra(Constants.BUNDLE_DATABASE, databaseName);
                 intent.putExtra(MainActivity.VALUE_CATEGORY, categoryList.get(position).getId()); // Your
                 context.startActivity(intent);
             }

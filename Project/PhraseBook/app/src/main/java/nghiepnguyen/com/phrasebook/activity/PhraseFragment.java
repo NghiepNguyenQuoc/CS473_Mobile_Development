@@ -21,6 +21,7 @@ import java.util.List;
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.adapter.CategoryAdapter;
 import nghiepnguyen.com.phrasebook.model.Category;
+import nghiepnguyen.com.phrasebook.model.Constants;
 import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 
 /**
@@ -28,6 +29,7 @@ import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
  */
 public class PhraseFragment extends Fragment {
     private Context mContext;
+    private String databaseName;
 
     public PhraseFragment() {
         // Required empty public constructor
@@ -48,6 +50,7 @@ public class PhraseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        databaseName = getArguments().getString(Constants.BUNDLE_DATABASE);
         return inflater.inflate(R.layout.fragment_phrase, container, false);
     }
 
@@ -55,8 +58,8 @@ public class PhraseFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(mContext);
-        File database = mContext.getDatabasePath(DatabaseHelper.DATABASE_NAME);
+        DatabaseHelper databaseHelper = new DatabaseHelper(mContext, databaseName);
+        File database = mContext.getDatabasePath(databaseName);
         if (!database.exists()) {
             databaseHelper.getReadableDatabase();
             copyDatabase();
@@ -68,15 +71,15 @@ public class PhraseFragment extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        CategoryAdapter adapter = new CategoryAdapter(mContext, rowItems);
+        CategoryAdapter adapter = new CategoryAdapter(mContext, rowItems, databaseName);
         mRecyclerView.setAdapter(adapter);
     }
 
 
     public void copyDatabase() {
         try {
-            InputStream inputStream = mContext.getAssets().open(DatabaseHelper.DATABASE_NAME);
-            String outFileName = DatabaseHelper.DBLOCATION + DatabaseHelper.DATABASE_NAME;
+            InputStream inputStream = mContext.getAssets().open(databaseName);
+            String outFileName = Constants.DBLOCATION + databaseName;
             OutputStream outputStream = new FileOutputStream(outFileName);
             byte[] buff = new byte[1024];
             int lenght;

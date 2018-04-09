@@ -22,6 +22,7 @@ import java.util.Map;
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.adapter.ExpandableListAdapter;
 import nghiepnguyen.com.phrasebook.model.Category;
+import nghiepnguyen.com.phrasebook.model.Constants;
 import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Phrase;
 
@@ -31,8 +32,9 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
     Map<Phrase, List<Phrase>> laptopCollection;
     ExpandableListView expListView;
     int valueCategory;
-    DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    DatabaseHelper databaseHelper;
     private SearchView mSearchView;
+    private String databaseName;
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 
     @Override
@@ -42,6 +44,8 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
 
         Bundle extras = getIntent().getExtras();
         valueCategory = extras.getInt(MainActivity.VALUE_CATEGORY);
+        databaseName = extras.getString(Constants.BUNDLE_DATABASE);
+        databaseHelper = new DatabaseHelper(this, databaseName);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -96,8 +100,7 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
         if (phraseList.size() > 0) {
             setContentView(R.layout.activity_phrase);
             expListView = findViewById(R.id.laptop_list);
-            final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(
-                    this, phraseList, laptopCollection, onlongclick);
+            final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(this, phraseList, laptopCollection, onlongclick,databaseName);
             expListView.setAdapter(expListAdapter);
             expListView.setOnChildClickListener(new OnChildClickListener() {
                 public boolean onChildClick(ExpandableListView parent, View v,
