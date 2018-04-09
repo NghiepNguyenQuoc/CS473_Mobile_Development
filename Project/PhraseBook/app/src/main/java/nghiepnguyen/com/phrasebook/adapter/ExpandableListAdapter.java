@@ -84,7 +84,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
                     MediaPlayer mp;
                     List<Phrase> child = laptopCollections.get(laptops.get(groupPosition));
-                    Uri uri = Uri.parse("android.resource://nghiepnguyen.com.phrasebook/raw/" + language + child.get(childPosition).getSound() + "_m");
+                    Uri uri = Uri.parse("android.resource://nghiepnguyen.com.phrasebook/raw/vietnamese"  + child.get(childPosition).getSound() + "_m");
                     mp = MediaPlayer.create(context, uri);
                     mp.setOnCompletionListener(new OnCompletionListener() {
                         @Override
