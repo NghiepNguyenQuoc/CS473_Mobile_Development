@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ddd"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.nghiepnguyen.lession6.AboutFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="About me"
+        android:textColor="#434343"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="Professional profile"
+        android:textColor="@android:color/darker_gray" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Hello, I'm Quoc Nghiep Nguyen. I am a hardworking, proficient IT professional with 1 year of web development experience and 4 years mobile development experience and real passion for developing mobile applications. \n\nReady to embrace advanced technology. Having helped develop apps in Android. I am looking for a new opportunity will allow me to continue to expand skills.\n\n Summary of experience: \n\n- 4 Years experience in Android Application development.\n\n- Worked on 10+  successfully delivered projects for reputed clients.\n\n- Expertise in developing Internet Applications with Web Services (json, xml)."
+        android:textColor="#000" />
+</LinearLayout>
