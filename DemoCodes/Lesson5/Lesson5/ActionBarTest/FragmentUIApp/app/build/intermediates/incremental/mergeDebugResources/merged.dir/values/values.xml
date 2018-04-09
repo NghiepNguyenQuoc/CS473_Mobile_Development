@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="blue">#0000FF</color>
+    <color name="green">#00FF00</color>
+    <color name="red">#FF0000</color>
+    <color name="yellow">#FFAA00</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <string name="action_settings">Settings</string>
+    <string name="addButton">Add item</string>
+    <string name="addItem">Add new item</string>
+    <string name="addItemDate">Date</string>
+    <string name="addItemDescr">Description name</string>
+    <string name="addItemDescrHint">Item description</string>
+    <string name="addItemName">Item name</string>
+    <string name="addItemNameHint">Item name here</string>
+    <string name="addItemNote">Note</string>
+    <string name="addItemNoteHint">Note...</string>
+    <string name="addItemTag">Tag</string>
+    <string name="addItemTime">Time</string>
+    <string name="app_name">ToDo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="list_title">List of items...</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="dateStyle">
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+    <style name="descrStyle">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+    </style>
+    <style name="nameStyle">
+         <item name="android:textAppearance">?android:textAppearanceMedium</item>
+         <item name="android:textStyle">bold</item>
+     </style>
+</resources>

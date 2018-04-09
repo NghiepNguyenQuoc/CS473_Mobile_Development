@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">DialogsTest</string>
+    <string name="back">You pressed BACK!</string>
+    <string name="dlg_title">A Sample Dialog</string>
+    <string name="toast">Name: %1$s / Value: %2$s</string>
+    <string name="display_name">Display Name:</string>
+    <string name="value">Value:</string>
+
+</resources>

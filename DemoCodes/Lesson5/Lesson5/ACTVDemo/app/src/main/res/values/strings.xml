@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ACTVDemo</string>
+    <string-array name="countries">
+        <item>India</item>
+        <item>Indonasia</item>
+        <item>USA</item>
+        <item>Asia</item>
+        <item>Africa</item>
+        <item>Siria</item>
+        <item>Sri Lanka</item>
+        <item>Canada</item>
+        <item>Koria</item>
+        <item>Island</item>
+        <item>Bangaladesh</item>
+        <item>Nepal</item>
+    </string-array>
+</resources>

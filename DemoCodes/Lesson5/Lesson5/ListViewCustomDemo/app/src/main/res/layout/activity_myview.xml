@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="0.2"
+        android:src="@drawable/twitter_logo"
+        android:id="@+id/lview"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="0.6"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="File Name"
+            android:textSize="20sp"
+            android:textColor="#FF0000"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/tv1"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="File Size"
+            android:textSize="20sp"
+            android:textColor="#0000FF"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/tv2"
+            />
+
+    </LinearLayout>
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:text="Del"
+        android:id="@+id/bt1"
+        />
+</LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ToDo</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!-- App strings  -->
+    <string name="list_title">List of items...</string>
+    <string name="addItem">Add new item</string>
+    <string name="addItemName">Item name</string>
+    <string name="addItemDescr">Description name</string>
+    <string name="addItemNote">Note</string>
+    <string name="addItemTag">Tag</string>
+    
+    <string name="addItemNameHint">Item name here</string>
+    <string name="addItemDescrHint">Item description</string>
+    <string name="addItemNoteHint">Note...</string>
+    <string name="addButton">Add item</string>
+    <string name="addItemDate">Date</string>
+    <string name="addItemTime">Time</string>
+    
+    
+    
+</resources>
