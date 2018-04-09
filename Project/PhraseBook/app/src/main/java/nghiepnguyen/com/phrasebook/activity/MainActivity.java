@@ -3,46 +3,23 @@ package nghiepnguyen.com.phrasebook.activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-
 import nghiepnguyen.com.phrasebook.R;
-import nghiepnguyen.com.phrasebook.adapter.CategoryAdapter;
-import nghiepnguyen.com.phrasebook.model.Category;
-import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
     public static final String VALUE_CATEGORY = "VALUE_CATEGORY";
+    public Fragment fragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        File database = getApplicationContext().getDatabasePath(DatabaseHelper.DATABASE_NAME);
-        if (!database.exists()) {
-            databaseHelper.getReadableDatabase();
-            copyDatabase();
-        }
-
-        List<Category> rowItems = databaseHelper.GetAllCategory();
-        RecyclerView mRecyclerView = findViewById(R.id.category_recyclerview);
-        mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        CategoryAdapter adapter = new CategoryAdapter(this, rowItems);
-        mRecyclerView.setAdapter(adapter);
+        fragment = new PhraseFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
     }
 
     @Override
@@ -73,22 +50,5 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
-    }
-
-    public void copyDatabase() {
-        try {
-            InputStream inputStream = getAssets().open(DatabaseHelper.DATABASE_NAME);
-            String outFileName = DatabaseHelper.DBLOCATION + DatabaseHelper.DATABASE_NAME;
-            OutputStream outputStream = new FileOutputStream(outFileName);
-            byte[] buff = new byte[1024];
-            int lenght;
-            while ((lenght = inputStream.read(buff)) > 0) {
-                outputStream.write(buff, 0, lenght);
-            }
-            outputStream.flush();
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
