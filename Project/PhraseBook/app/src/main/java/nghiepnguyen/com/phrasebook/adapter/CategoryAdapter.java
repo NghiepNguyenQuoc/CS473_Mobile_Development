@@ -2,10 +2,10 @@ package nghiepnguyen.com.phrasebook.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,51 +16,43 @@ import nghiepnguyen.com.phrasebook.activity.MainActivity;
 import nghiepnguyen.com.phrasebook.activity.PhraseActivity;
 import nghiepnguyen.com.phrasebook.model.Category;
 
-public class CategoryAdapter extends BaseAdapter {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private Context context;
     private List<Category> categoryList;
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        ImageView imageView;
+        TextView txtTitle;
+
+        ViewHolder(View view) {
+            super(view);
+            txtTitle = view.findViewById(R.id.category_textview);
+            imageView = view.findViewById(R.id.icon_imageview);
+        }
+    }
 
     public CategoryAdapter(Context context, List<Category> categoryList) {
         this.context = context;
         this.categoryList = categoryList;
     }
 
-    private class ViewHolder {
-        ImageView imageView;
-        TextView txtTitle;
+    @Override
+    public CategoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                         int viewType) {
+        // create a new view
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_category, parent, false);
+        return new ViewHolder(itemView);
     }
 
     @Override
-    public int getCount() {
-        return categoryList.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         Category rowItem = categoryList.get(position);
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_category, null);
-            holder = new ViewHolder();
-            holder.txtTitle = convertView.findViewById(R.id.category_textview);
-            holder.imageView = convertView.findViewById(R.id.icon_imageview);
-            convertView.setTag(holder);
-        } else
-            holder = (ViewHolder) convertView.getTag();
-
         holder.txtTitle.setText(rowItem.getNamecategory());
         holder.imageView.setImageDrawable(this.context.getResources().getDrawable(
                 context.getResources().getIdentifier("drawable/" + rowItem.getImg(), "drawable", context.getPackageName())));
-        convertView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PhraseActivity.class);
@@ -68,6 +60,10 @@ public class CategoryAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
-        return convertView;
+    }
+
+    @Override
+    public int getItemCount() {
+        return categoryList.size();
     }
 }

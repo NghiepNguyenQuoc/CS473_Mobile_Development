@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,7 +22,8 @@ import nghiepnguyen.com.phrasebook.model.Category;
 import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String VALUE_CATEGORY="VALUE_CATEGORY";
+    public static final String VALUE_CATEGORY = "VALUE_CATEGORY";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +36,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         List<Category> rowItems = databaseHelper.GetAllCategory();
-        ListView listView = findViewById(R.id.list);
+        RecyclerView mRecyclerView = findViewById(R.id.category_recyclerview);
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
         CategoryAdapter adapter = new CategoryAdapter(this, rowItems);
-        listView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
