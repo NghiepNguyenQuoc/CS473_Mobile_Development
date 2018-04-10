@@ -8,4 +8,63 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="experience">Experience</string>
+    <string name="where_i_worked">Where I worked</string>
+    <string name="inspire_vietnam_co_ltd">Inspire Vietnam Co., Ltd,</string>
+    <string name="android_developer_ui_ux_design">Android developer | UI/UX design</string>
+    <string name="deliveree_amp_transportify_services"><![CDATA[Deliveree & Transportify Services]]></string>
+    <string name="asia_ict_service_jsc">ASIA ICT SERVICE JSC,</string>
+    <string name="android_developer">Android developer / Software Engineer</string>
+    <string name="project1_des">Deliveree is a full service on-demand transportation and logistics provider at the tip of your fingers. Use our mobile app to book and manage pickups and deliveries of anything and let our drivers handle the rest.</string>
+    <string name="deliveree_amp_transportify_for_drivers"><![CDATA[Deliveree & Transportify For Drivers]]></string>
+    <string name="project2_des">The app matches a demand with a driver in about a minuteand provides customer with the driver’s contact details and ETA topickup location.</string>
+    <string name="responsible1">Responsibilities:\n
+    - Designed and implemented the user interfaces (UI).\n
+    - Performed Unit Tests.\n
+    - Specified and performed Feature Deliverables Test plans.\n
+    - Used: Java, Android Studio 2.3.3, Google API, AWS service, Firebase
+    service, Twilio service, Crashlytic, Freshdesk, Volley, Flurry Analytics,
+    MoEngage, Sqlite and SharedPreferences.
+
+    \nProgramming Duration: 2.5 years
+    \n8 hours coding/testing/maintenance per day</string>
+    <string name="gossiper">Gossiper</string>
+    <string name="project3_des">This is a news app read clearly summarized. We have some categories as entertainment news, technical seasonality love, diet, cosmetics, beauty, corde, fashion, music, emotion.Post your favorite You can also share with friends via Facebook, Line, Twitter or copy url to clipboard and send it via Email, SMS, ....</string>
+    <string name="virtualdrum">VirtualDrum</string>
+    <string name="project4_des">Play 13 drum pads with 19+ ealistic drum sounds.
+Instruments like kick, bass, snare, tom, floor, cymbal, hi-hat, ride, crash,
+splash, bell, china, stack, block, cowbell and tambourine. Record mode.
+Play in loop. Works with all screen resolutions - Cell Phones and Tablets
+(HD Images)</string>
+    <string name="okane">Okane</string>
+    <string name="project5_des">The application allows you to view information of the
+financial companies in Japan. Advice from lending money, providing
+computational tools interest, payable monthly.</string>
+    <string name="keiba">KeiBa</string>
+    <string name="project6_des">The application enables viewing news in the horse races in
+Japan. Users can view the rate, location, time of race inspection.</string>
+    <string name="ohirudate">Ohirudate</string>
+    <string name="project7_des">The application lets you search and link together through
+the search criteria to match those of the opposite sex to meet and then
+proceed to marriage.</string>
+    <string name="responsible2">Responsibilities:\n
+- Designed and implemented the user interfaces (UI).\n
+- Performed Unit Tests.\n
+        -Designed and implemented the user interfaces (UI).\n
+- Used: Html, Css, Javascipt, PhoneGap(Monaca:http://monaca.mobi/),MonacaSDK, Web service API, Android Studio 1.0, Eclipse IDE, Web serivice API.
+      \nProgramming Duration: 1.5 years
+    \n8 hours coding/testing/maintenance per day</string>
+    <string name="education">Education</string>
+    <string name="my_collect">my college</string>
+    <string name="about">Hello, I\'m Quoc Nghiep Nguyen.
+            I am a hardworking, proficient IT professional with 1 year of web development experience and 4 years mobile development experience
+            and real passion for developing mobile applications. Ready to embrace advanced technology. Having helped develop apps in Android.
+            Summary of experience: \n\n
+            -Four years professional experience in software engineering as Android development using Android Studio.\n
+- Expertise in developing Internet Applications with Web Services (json,xml).\n
+- Hands on experience in Android SDK based application development.
+- Familiar with Android APIs.\n
+- Strong ability to perform complex analysis, design and development .\n
+- High level ability to support operational and production systems.</string>
+
 </resources>
