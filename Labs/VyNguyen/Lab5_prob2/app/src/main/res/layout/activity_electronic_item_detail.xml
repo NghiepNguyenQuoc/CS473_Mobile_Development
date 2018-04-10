@@ -65,5 +65,5 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:textSize="10pt"
-        android:text="Description"/>
+        android:text="Description" />
 </LinearLayout>
