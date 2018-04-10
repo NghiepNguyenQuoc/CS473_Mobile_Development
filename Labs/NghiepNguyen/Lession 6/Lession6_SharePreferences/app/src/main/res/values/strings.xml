@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Lession 6 Share Preferences</string>
+    <string-array name="arr_beauty_list">
+        <item>Shampoo</item>
+        <item>Conditioner</item>
+        <item>Styling Products</item>
+        <item>Moisturizers</item>
+        <item>Cleansers</item>
+        <item>Treatments</item>
+        <item>Body Cleansing</item>
+        <item>Body Moisturizer</item>
+        <item>Hand Moisturizer</item>
+        <item>Makeup Gift Sets</item>
+        <item>Fragrance Gift Sets</item>
+        <item>Bath and Body</item>
+    </string-array>
+
+
+    <string-array name="arr_clothing">
+        <item>Shoes</item>
+        <item>Sneakers &amp; Athletic</item>
+        <item>Boots</item>
+        <item>Oxfords</item>
+        <item>Loafers</item>
+        <item>Boat Shoes</item>
+        <item>Jeans</item>
+        <item>Pants</item>
+        <item>Hoodies &amp; Sweatshirts</item>
+        <item>Sweaters</item>
+        <item>Sweaters</item>
+        <item>Swimwear</item>
+        <item>Underwear</item>
+        <item>Socks</item>
+        <item>Bags &amp; Wallets</item>
+    </string-array>
+
+    <string-array name="arr_food">
+        <item>Appetizers</item>
+        <item>Snacks &amp; Small Plates</item>
+        <item>Soups</item>
+        <item>Side Salads</item>
+        <item>Entrée Salads</item>
+        <item>Pork</item>
+        <item>Steak</item>
+        <item>Seafood</item>
+        <item>Fresh Catches</item>
+        <item>Bowls</item>
+        <item>Chicken</item>
+        <item>Tacos</item>
+        <item>Sandwiches</item>
+    </string-array>
+</resources>
