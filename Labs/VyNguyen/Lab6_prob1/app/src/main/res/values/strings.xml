@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Vy Nguyen - Software Developer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home_fragment">HOME</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="about_me_fragment">ABOUT ME</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="work_experience_fragment">WORK EXPERIENCE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="contact_fragment">CONTACT</string>
+</resources>
