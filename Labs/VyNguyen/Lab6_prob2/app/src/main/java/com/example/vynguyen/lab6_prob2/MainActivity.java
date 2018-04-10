@@ -50,6 +50,14 @@ public class MainActivity extends Activity {
         // Get share preference
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 
+        // Check share preference data
+        String preUserName = sharedPreferences.getString("userEmail", "");
+        String prePassword = sharedPreferences.getString("userPassword", "");
+
+        // Verify
+        if(!preUserName.isEmpty()) userEmail.setText(preUserName);
+        if(!prePassword.isEmpty()) password.setText(prePassword);
+
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
