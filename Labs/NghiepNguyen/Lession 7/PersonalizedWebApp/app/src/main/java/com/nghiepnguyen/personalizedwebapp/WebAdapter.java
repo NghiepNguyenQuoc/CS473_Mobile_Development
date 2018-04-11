@@ -63,7 +63,7 @@ public class WebAdapter extends BaseAdapter {
                 mContext.startActivity(intent);
             }
         });
-        return null;
+        return view;
     }
 
     class ViewHolder {
