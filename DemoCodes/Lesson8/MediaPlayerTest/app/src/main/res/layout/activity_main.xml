@@ -1,0 +1,84 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+<ImageView
+    android:layout_height="0dp"
+    android:layout_weight="0.7"
+    android:src="@drawable/logo"
+    android:layout_width="match_parent" />
+
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:id="@+id/sBar"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal"
+        >
+        
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:src="@drawable/backward"
+            android:id="@+id/backward"
+            android:onClick="test"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:src="@drawable/logo"
+            android:id="@+id/play"
+            android:onClick="test"
+            />
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:src="@drawable/pause"
+            android:id="@+id/pause"
+            android:onClick="test"
+            />
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:src="@drawable/stop"
+            android:id="@+id/stop"
+            android:onClick="test"
+            />
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:src="@drawable/forward"
+            android:id="@+id/forward"
+            android:onClick="test"
+            />
+
+
+
+    </LinearLayout>
+    
+    
+    
+    
+</LinearLayout>
+
+
