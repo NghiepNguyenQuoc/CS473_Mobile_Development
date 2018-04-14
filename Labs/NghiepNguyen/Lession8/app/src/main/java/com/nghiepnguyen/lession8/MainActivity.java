@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fragment = new MediaFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
     }
 
     @Override
@@ -50,19 +53,20 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_media_player) {
-            if (fragment == null || !fragment.getTag().equalsIgnoreCase(Constant.PROJECT_LIST)) {
-                fragment = new MediaFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, Constant.PROJECT_LIST).commit();
-                toolbar.setTitle(getResources().getString(R.string.nav_item_project_list));
-            }
+            fragment = new MediaFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         } else if (id == R.id.nav_video) {
-
+            fragment = new VideoFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         } else if (id == R.id.nav_audio_recording) {
-
+            fragment = new AudioRecordingFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         } else if (id == R.id.nav_video_recording) {
-
+            fragment = new VideoRecordingFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         } else if (id == R.id.nav_camera_gallery) {
-
+            fragment = new CameraGalleryFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
