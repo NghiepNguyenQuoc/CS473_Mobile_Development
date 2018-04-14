@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public Fragment fragment;
     private NavigationView navigationView;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        toolbar.setTitle("Media Player");
         fragment = new MediaFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
     }
@@ -53,18 +55,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_media_player) {
+            toolbar.setTitle("Media Player");
             fragment = new MediaFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         } else if (id == R.id.nav_video) {
+            toolbar.setTitle("Video Player");
             fragment = new VideoFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         } else if (id == R.id.nav_audio_recording) {
+            toolbar.setTitle("Audio Recording");
             fragment = new AudioRecordingFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         } else if (id == R.id.nav_video_recording) {
+            toolbar.setTitle("Video Recording");
             fragment = new VideoRecordingFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         } else if (id == R.id.nav_camera_gallery) {
+            toolbar.setTitle("Camera & Gallery");
             fragment = new CameraGalleryFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, "fragment").commit();
         }
