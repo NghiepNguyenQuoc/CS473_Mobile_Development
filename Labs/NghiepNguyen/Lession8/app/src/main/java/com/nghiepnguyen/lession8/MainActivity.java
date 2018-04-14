@@ -50,7 +50,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_media_player) {
-            // Handle the camera action
+            if (fragment == null || !fragment.getTag().equalsIgnoreCase(Constant.PROJECT_LIST)) {
+                fragment = new MediaFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, Constant.PROJECT_LIST).commit();
+                toolbar.setTitle(getResources().getString(R.string.nav_item_project_list));
+            }
         } else if (id == R.id.nav_video) {
 
         } else if (id == R.id.nav_audio_recording) {
