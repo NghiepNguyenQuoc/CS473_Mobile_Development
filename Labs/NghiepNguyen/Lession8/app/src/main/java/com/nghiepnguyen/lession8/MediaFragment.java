@@ -20,7 +20,7 @@ public class MediaFragment extends Fragment implements View.OnClickListener {
     MediaPlayer mPlayer;
     SeekBar sBar;
     android.os.Handler handler = new android.os.Handler();
-    ImageView backward, play, pause, stop, forward;
+    ImageView backward, play, stop, forward;
 
     public MediaFragment() {
         // Required empty public constructor
@@ -35,13 +35,11 @@ public class MediaFragment extends Fragment implements View.OnClickListener {
         sBar = view.findViewById(R.id.sBar);
         backward = view.findViewById(R.id.backward);
         play = view.findViewById(R.id.play);
-        pause = view.findViewById(R.id.pause);
         stop = view.findViewById(R.id.stop);
         forward = view.findViewById(R.id.forward);
 
         backward.setOnClickListener(this);
         play.setOnClickListener(this);
-        pause.setOnClickListener(this);
         stop.setOnClickListener(this);
         forward.setOnClickListener(this);
 
@@ -84,14 +82,19 @@ public class MediaFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.play:
-                mPlayer.start();
-                break;
-            case R.id.pause:
-                mPlayer.pause();
+                if (!mPlayer.isPlaying()) {
+                    mPlayer.start();
+                    play.setImageResource(R.drawable.pause);
+                } else {
+                    mPlayer.pause();
+                    play.setImageResource(R.drawable.logo);
+                }
                 break;
             case R.id.stop:
                 mPlayer.stop();
                 mPlayer = MediaPlayer.create(getActivity(), R.raw.saripovu);
+                play.setImageResource(R.drawable.logo);
+                sBar.setProgress(0);
                 break;
             case R.id.forward:
                 mPlayer.seekTo(mPlayer.getCurrentPosition() + mPlayer.getDuration() / 10);

@@ -21,7 +21,7 @@ import android.widget.Button;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VideoRecordingFragment extends Fragment implements SurfaceHolder.Callback {
+public class VideoRecordingFragment extends Fragment implements SurfaceHolder.Callback, View.OnClickListener {
 
 
     MediaRecorder recorder;
@@ -45,6 +45,9 @@ public class VideoRecordingFragment extends Fragment implements SurfaceHolder.Ca
         st = (Button) view.findViewById(R.id.button);
         sp = (Button) view.findViewById(R.id.button2);
         sView = (SurfaceView) view.findViewById(R.id.surfaceView);
+
+        st.setOnClickListener(this);
+        sp.setOnClickListener(this);
         sHolder = sView.getHolder();
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             st.setEnabled(false);
@@ -82,15 +85,6 @@ public class VideoRecordingFragment extends Fragment implements SurfaceHolder.Ca
         }
     }
 
-    public void start(View v) {
-        init();
-        recorder.start();
-    }
-
-
-    public void stop(View v) {
-        recorder.stop();
-    }
 
     protected void requestPermission(String permissionType, int requestCode) {
         int permission = ContextCompat.checkSelfPermission(getActivity(), permissionType);
@@ -112,5 +106,18 @@ public class VideoRecordingFragment extends Fragment implements SurfaceHolder.Ca
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button:
+                init();
+                recorder.start();
+                break;
+            case R.id.button2:
+                recorder.stop();
+                break;
+        }
     }
 }
