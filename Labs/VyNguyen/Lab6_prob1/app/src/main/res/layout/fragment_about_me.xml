@@ -6,9 +6,58 @@
     tools:context=".AboutMeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/about_me_fragment" />
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/border_grouptextview"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:text="Soft skill"
+            android:textSize="12pt"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin = "20dp"
+            android:text="Team work, English: Can communicate to the customer in project context effectively, Management: Can manage multiple projects, Can manage a team that has 7 members" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/border_grouptextview"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:text="Programming skill"
+            android:textSize="12pt"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin = "20dp"
+            android:text="C/C++, VB, C#, HTML, Tcl/Tk, regular exception, MSQL Server 2000, MSQL Server 2005
+" />
+    </LinearLayout>
+    </LinearLayout>
+
 
 </FrameLayout>

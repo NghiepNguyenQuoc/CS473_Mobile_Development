@@ -6,9 +6,29 @@
     tools:context=".WorkExperienceFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/work_experience_fragment" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:text="Experience"
+            android:textSize="12pt"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="
+            8+ years of software experience, Strong experiences in VB.NET, C#, Tcl/Tk, Expect, Knowledgeable developing an automation infrastructure based on TCL/TK scripts for networking devices to help with system testing, Good at writing skill (documentation, email, and describe…, Experienced working in HytekVN Company and Software Development Company" />
+
+    </LinearLayout>
 
 </FrameLayout>

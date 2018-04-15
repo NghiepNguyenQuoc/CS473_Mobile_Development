@@ -6,9 +6,36 @@
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/home_fragment" />
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/profile"
+            android:layout_margin="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:text="About"
+            android:textSize="12pt"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="I am Vy Nguyen from Viet Nam. I am the mother of two boys and have a warm family with a loving husband in my hometown. I have a sister and my parents have retired and helped me take care of my baby. I am a quiet person, shy of communication and a bit shy and looking for safety. But after having a family and two children, I began to change my mind about the environment, life as a mother to be more responsible for my child's future. And the only way to change that is to change myself first, to find new environments, new challenges, new knowledge and self-improvement. When I get the knowledge or how to live well, I will upload it to my family as well as my hometown and help people grow together."
+            />
+
+    </LinearLayout>
 
 </FrameLayout>
