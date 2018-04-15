@@ -2,11 +2,11 @@ package nghiepnguyen.com.phrasebook.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,16 +82,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     else if (databaseName.equals(Constants.DATABASE_TQ_NAME))
                         language = Constants.CHINESE;
 
-                    MediaPlayer mp;
+                    MediaPlayer mp = new MediaPlayer();
                     List<Phrase> child = laptopCollections.get(laptops.get(groupPosition));
-                    Uri uri = Uri.parse("android.resource://nghiepnguyen.com.phrasebook/raw/vietnamese"  + child.get(childPosition).getSound() + "_m");
-                    mp = MediaPlayer.create(context, uri);
+                    AssetFileDescriptor descriptor = context.getAssets().openFd(language + child.get(childPosition).getSound() + "_m.ogg");
+                    mp.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+                    descriptor.close();
                     mp.setOnCompletionListener(new OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
                             mp.release();
                         }
                     });
+                    mp.prepare();
+                    mp.setVolume(1f, 1f);
                     mp.start();
                 } catch (Exception e) {
                     Log.e(TAG, "Can not play the sound");
