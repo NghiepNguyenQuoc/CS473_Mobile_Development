@@ -13,5 +13,6 @@ public class Constants {
     public static final String DBLOCATION = "/data/data/nghiepnguyen.com.phrasebook/databases/";
 
     public static final String BUNDLE_DATABASE = "DATABASE_NAME";
+    public static final String BUNDLE_LOCK = "LOCK";
 
 }

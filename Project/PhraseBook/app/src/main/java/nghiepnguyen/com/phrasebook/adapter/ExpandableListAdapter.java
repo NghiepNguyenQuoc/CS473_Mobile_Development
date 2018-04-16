@@ -36,14 +36,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private DatabaseHelper databaseHelper;
     private OnLongClickListener onlonglist;
     private String databaseName;
+    private int isLock;
 
     public ExpandableListAdapter(Activity context, List<Phrase> laptops,
-                                 Map<Phrase, List<Phrase>> laptopCollections, OnLongClickListener onlongclick, String databaseName) {
+                                 Map<Phrase, List<Phrase>> laptopCollections, OnLongClickListener onlongclick, String databaseName, int isLock) {
         this.context = context;
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
         this.onlonglist = onlongclick;
         this.databaseName = databaseName;
+        this.isLock = isLock;
         databaseHelper = new DatabaseHelper(context, databaseName);
     }
 
@@ -69,22 +71,28 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView item2 = convertView.findViewById(R.id.spelling_textview);
         item2.setTextColor(Color.parseColor("#a69348"));
         ImageView playSoundButton = convertView.findViewById(R.id.sound_button);
+        playSoundButton.setVisibility(isLock == 1 ? View.VISIBLE : View.GONE);
         playSoundButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 try {
-                    String language = null;
-                    if (databaseName.equals(Constants.DATABASE_VN_NAME))
+                    String language = null, suffixName = null;
+                    if (databaseName.equals(Constants.DATABASE_VN_NAME)) {
                         language = Constants.VIETNAMESE;
-                    else if (databaseName.equals(Constants.DATABASE_HQ_NAME))
+                        suffixName = "_m.ogg";
+                    } else if (databaseName.equals(Constants.DATABASE_HQ_NAME)) {
                         language = Constants.KOREAN;
-                    else if (databaseName.equals(Constants.DATABASE_NB_NAME))
+                        suffixName = "_f.ogg";
+                    } else if (databaseName.equals(Constants.DATABASE_NB_NAME)) {
                         language = Constants.JAPANESE;
-                    else if (databaseName.equals(Constants.DATABASE_TQ_NAME))
+                        suffixName = "_f.ogg";
+                    } else if (databaseName.equals(Constants.DATABASE_TQ_NAME)) {
                         language = Constants.CHINESE;
+                        suffixName = "_m.ogg";
+                    }
 
                     MediaPlayer mp = new MediaPlayer();
                     List<Phrase> child = laptopCollections.get(laptops.get(groupPosition));
-                    AssetFileDescriptor descriptor = context.getAssets().openFd(language + child.get(childPosition).getSound() + "_m.ogg");
+                    AssetFileDescriptor descriptor = context.getAssets().openFd(language + child.get(childPosition).getSound() + suffixName);
                     mp.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
                     descriptor.close();
                     mp.setOnCompletionListener(new OnCompletionListener() {

@@ -51,7 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Category rowItem = categoryList.get(position);
+        final Category rowItem = categoryList.get(position);
         holder.txtTitle.setText(rowItem.getNamecategory());
         holder.imageView.setImageDrawable(this.context.getResources().getDrawable(
                 context.getResources().getIdentifier("drawable/" + rowItem.getImg(), "drawable", context.getPackageName())));
@@ -60,6 +60,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             public void onClick(View view) {
                 Intent intent = new Intent(context, PhraseActivity.class);
                 intent.putExtra(Constants.BUNDLE_DATABASE, databaseName);
+                intent.putExtra(Constants.BUNDLE_LOCK, rowItem.getLock());
                 intent.putExtra(MainActivity.VALUE_CATEGORY, categoryList.get(position).getId()); // Your
                 context.startActivity(intent);
             }

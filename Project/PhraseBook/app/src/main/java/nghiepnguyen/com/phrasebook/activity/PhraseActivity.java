@@ -35,6 +35,7 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
     DatabaseHelper databaseHelper;
     private SearchView mSearchView;
     private String databaseName;
+    private int isLock;
     private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 
     @Override
@@ -45,6 +46,7 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
         Bundle extras = getIntent().getExtras();
         valueCategory = extras.getInt(MainActivity.VALUE_CATEGORY);
         databaseName = extras.getString(Constants.BUNDLE_DATABASE);
+        isLock = extras.getInt(Constants.BUNDLE_LOCK);
         databaseHelper = new DatabaseHelper(this, databaseName);
 
         ActionBar actionBar = getSupportActionBar();
@@ -100,7 +102,7 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
         if (phraseList.size() > 0) {
             setContentView(R.layout.activity_phrase);
             expListView = findViewById(R.id.laptop_list);
-            final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(this, phraseList, laptopCollection, onlongclick,databaseName);
+            final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(this, phraseList, laptopCollection, onlongclick, databaseName, isLock);
             expListView.setAdapter(expListAdapter);
             expListView.setOnChildClickListener(new OnChildClickListener() {
                 public boolean onChildClick(ExpandableListView parent, View v,
