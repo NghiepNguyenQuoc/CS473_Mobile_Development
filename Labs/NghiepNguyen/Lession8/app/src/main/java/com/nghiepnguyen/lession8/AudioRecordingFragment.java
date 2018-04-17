@@ -1,10 +1,14 @@
 package com.nghiepnguyen.lession8;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +52,15 @@ public class AudioRecordingFragment extends Fragment implements View.OnClickList
         btnStart.setOnClickListener(this);
         btnStartPlay.setOnClickListener(this);
 
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        } else {
+            initRecorder();
+        }
+        return view;
+    }
+
+    public void initRecorder() {
         recorder = new MediaRecorder();
         //2. Set the audio source MIC for recording
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -57,7 +70,17 @@ public class AudioRecordingFragment extends Fragment implements View.OnClickList
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         //5. Set the source to store the file
         recorder.setOutputFile("/sdcard/test.amr");
-        return view;
+    }
+
+    // Check permission of the camera Intent & External Storage
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 0) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                initRecorder();
+            }
+        }
     }
 
     @Override
