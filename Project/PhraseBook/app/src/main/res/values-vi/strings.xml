@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Học Tiếng Việt - PhraseBook</string>
+    <string name="language_chinese">Tiếng Trung</string>
+    <string name="language_japanese">Tiếng Nhật</string>
+    <string name="language_korean">Tiếng Hàn</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
+</resources>

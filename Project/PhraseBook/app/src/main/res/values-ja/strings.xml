@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">日本語を学ぶ - PhraseBook</string>
+    <string name="language_chinese">中国語</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">韓国語</string>
+    <string name="language_vietnamese">ベトナム語</string>
+</resources>

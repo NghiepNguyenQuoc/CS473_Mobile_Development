@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">学习中文普通话 - PhraseBook</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_japanese">日本</string>
+    <string name="language_korean">朝鲜的</string>
+    <string name="language_vietnamese">越南</string>
+</resources>
