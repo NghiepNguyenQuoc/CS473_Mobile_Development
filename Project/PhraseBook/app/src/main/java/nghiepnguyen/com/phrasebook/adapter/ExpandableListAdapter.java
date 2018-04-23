@@ -14,13 +14,13 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 import java.util.Map;
 
+import nghiepnguyen.com.phrasebook.IExpandListViewExpanded;
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.model.Constants;
 import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
@@ -29,7 +29,7 @@ import nghiepnguyen.com.phrasebook.model.Phrase;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private final String TAG = ExpandableListAdapter.class.getSimpleName();
-    private Activity context;
+    private Context context;
     private Map<Phrase, List<Phrase>> laptopCollections;
     private List<Phrase> laptops;
     private int lastExpandedGroupPosition;
@@ -37,15 +37,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private OnLongClickListener onlonglist;
     private String databaseName;
     private int isLock;
+    private IExpandListViewExpanded listener;
 
-    public ExpandableListAdapter(Activity context, List<Phrase> laptops,
-                                 Map<Phrase, List<Phrase>> laptopCollections, OnLongClickListener onlongclick, String databaseName, int isLock) {
+    public ExpandableListAdapter(Context context, List<Phrase> laptops,
+                                 Map<Phrase, List<Phrase>> laptopCollections, OnLongClickListener onlongclick, String databaseName, int isLock, IExpandListViewExpanded listener) {
         this.context = context;
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
         this.onlonglist = onlongclick;
         this.databaseName = databaseName;
         this.isLock = isLock;
+        this.listener = listener;
         databaseHelper = new DatabaseHelper(context, databaseName);
     }
 
@@ -61,7 +63,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(final int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
         final Phrase laptop = (Phrase) getChild(groupPosition, childPosition);
-        LayoutInflater inflater = context.getLayoutInflater();
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_expandable, null);
@@ -174,9 +176,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public void onGroupExpanded(int groupPosition) {
         // TODO Auto-generated method stub
         super.onGroupExpanded(groupPosition);
-        ExpandableListView elw = context.findViewById(R.id.laptop_list);
         if (groupPosition != lastExpandedGroupPosition) {
-            elw.collapseGroup(lastExpandedGroupPosition);
+            listener.onGroupExpanded(lastExpandedGroupPosition);
         }
         lastExpandedGroupPosition = groupPosition;
     }

@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+
     <item
         android:id="@+id/search"
         android:layout_width="match_parent"
@@ -17,5 +17,24 @@
         android:icon="@drawable/ic_fav_press"
         android:title="Favorite"
         app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/vietnamese_item"
+        android:orderInCategory="100"
+        android:title="Vietnamese"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/chinese_item"
+        android:layout_width="match_parent"
+        android:title="Chinese"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/japanese_item"
+        android:title="Japanese"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/korean_item"
+        android:title="Korean"
+        app:showAsAction="withText" />
 
 </menu>

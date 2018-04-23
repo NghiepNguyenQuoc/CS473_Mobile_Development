@@ -1,7 +1,8 @@
 package nghiepnguyen.com.phrasebook.adapter;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,15 @@ import java.util.List;
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.activity.MainActivity;
 import nghiepnguyen.com.phrasebook.activity.PhraseActivity;
+import nghiepnguyen.com.phrasebook.activity.PhraseDetailFragment;
 import nghiepnguyen.com.phrasebook.model.Category;
 import nghiepnguyen.com.phrasebook.model.Constants;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-    private Context context;
+    private MainActivity mContext;
     private List<Category> categoryList;
     private String databaseName;
+    private boolean mTwoPane;
 
     class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
@@ -34,10 +37,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    public CategoryAdapter(Context context, List<Category> categoryList, String databaseName) {
-        this.context = context;
+    public CategoryAdapter(MainActivity mParentActivity, List<Category> categoryList, String databaseName, boolean mTwoPane) {
+        this.mContext = mParentActivity;
         this.categoryList = categoryList;
         this.databaseName = databaseName;
+        this.mTwoPane = mTwoPane;
     }
 
     @Override
@@ -53,16 +57,28 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Category rowItem = categoryList.get(position);
         holder.txtTitle.setText(rowItem.getNamecategory());
-        holder.imageView.setImageDrawable(this.context.getResources().getDrawable(
-                context.getResources().getIdentifier("drawable/" + rowItem.getImg(), "drawable", context.getPackageName())));
+        holder.imageView.setImageDrawable(mContext.getResources().getDrawable(
+                mContext.getResources().getIdentifier("drawable/" + rowItem.getImg(), "drawable", mContext.getPackageName())));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, PhraseActivity.class);
-                intent.putExtra(Constants.BUNDLE_DATABASE, databaseName);
-                intent.putExtra(Constants.BUNDLE_LOCK, rowItem.getLock());
-                intent.putExtra(MainActivity.VALUE_CATEGORY, categoryList.get(position).getId()); // Your
-                context.startActivity(intent);
+                if (mTwoPane) {
+                    Fragment fragment = new PhraseDetailFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.BUNDLE_DATABASE, databaseName);
+                    bundle.putInt(Constants.BUNDLE_LOCK, rowItem.getLock());
+                    bundle.putInt(MainActivity.VALUE_CATEGORY, categoryList.get(position).getId()); // Your
+                    fragment.setArguments(bundle);
+                    mContext.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.item_detail_container, fragment, "fragment")
+                            .commit();
+                } else {
+                    Intent intent = new Intent(mContext, PhraseActivity.class);
+                    intent.putExtra(Constants.BUNDLE_DATABASE, databaseName);
+                    intent.putExtra(Constants.BUNDLE_LOCK, rowItem.getLock());
+                    intent.putExtra(MainActivity.VALUE_CATEGORY, categoryList.get(position).getId()); // Your
+                    mContext.startActivity(intent);
+                }
             }
         });
     }
