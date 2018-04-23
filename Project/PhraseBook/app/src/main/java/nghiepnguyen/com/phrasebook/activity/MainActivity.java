@@ -158,8 +158,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     public void copyDatabase() {
         try {
-            InputStream inputStream = getAssets().open(Constants.DATABASE_VN_NAME);
-            String outFileName = Constants.DBLOCATION + Constants.DATABASE_VN_NAME;
+            InputStream inputStream = getAssets().open(currentDB);
+            String outFileName = Constants.DBLOCATION + currentDB;
             OutputStream outputStream = new FileOutputStream(outFileName);
             byte[] buff = new byte[1024];
             int lenght;
