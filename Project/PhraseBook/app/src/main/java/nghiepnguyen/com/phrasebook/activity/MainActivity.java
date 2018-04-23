@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return true;
     }
 
-
     private void setupRecyclerView(String databaseName, boolean mTwoPane) {
         currentDB = databaseName;
         DatabaseHelper databaseHelper = new DatabaseHelper(this, databaseName);

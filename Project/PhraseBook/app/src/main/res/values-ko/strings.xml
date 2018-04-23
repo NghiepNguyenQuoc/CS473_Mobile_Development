@@ -5,4 +5,7 @@
     <string name="language_japanese">일본어</string>
     <string name="language_korean">한국어</string>
     <string name="language_vietnamese">베트남 사람</string>
+    <string name="voice_search">음성 검색</string>
+    <string name="search">수색</string>
+    <string name="favorite">특히 잘하는</string>
 </resources>

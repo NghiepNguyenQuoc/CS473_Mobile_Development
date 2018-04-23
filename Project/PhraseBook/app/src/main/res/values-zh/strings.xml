@@ -5,4 +5,7 @@
     <string name="language_japanese">日本</string>
     <string name="language_korean">朝鲜的</string>
     <string name="language_vietnamese">越南</string>
+    <string name="voice_search">声音搜索</string>
+    <string name="search">搜索</string>
+    <string name="favorite">喜爱</string>
 </resources>

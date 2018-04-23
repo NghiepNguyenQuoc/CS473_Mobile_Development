@@ -4,4 +4,7 @@
     <string name="language_japanese">Japanese</string>
     <string name="language_korean">Korean</string>
     <string name="language_vietnamese">Vietnamese</string>
+    <string name="voice_search">Voice Search</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
 </resources>

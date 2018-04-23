@@ -5,4 +5,7 @@
     <string name="language_japanese">Tiếng Nhật</string>
     <string name="language_korean">Tiếng Hàn</string>
     <string name="language_vietnamese">Tiếng Việt</string>
+    <string name="favorite">Yêu thích</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="voice_search">Tìm kiếm bằng giọng nói</string>
 </resources>
