@@ -16,8 +16,8 @@ import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.activity.MainActivity;
 import nghiepnguyen.com.phrasebook.activity.PhraseActivity;
 import nghiepnguyen.com.phrasebook.activity.PhraseDetailFragment;
-import nghiepnguyen.com.phrasebook.model.Category;
 import nghiepnguyen.com.phrasebook.common.Constants;
+import nghiepnguyen.com.phrasebook.model.Category;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private MainActivity mContext;
@@ -81,6 +81,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 }
             }
         });
+
+        if (position == getItemCount() - 1) {
+            holder.itemView.setPadding(Constants.convertPixelsToDp(5, mContext), Constants.convertPixelsToDp(5, mContext),
+                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(10, mContext));
+        } else {
+            holder.itemView.setPadding(Constants.convertPixelsToDp(5, mContext), Constants.convertPixelsToDp(5, mContext),
+                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(00, mContext));
+        }
     }
 
     @Override
