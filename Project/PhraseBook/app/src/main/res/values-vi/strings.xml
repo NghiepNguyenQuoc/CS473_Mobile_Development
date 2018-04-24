@@ -8,4 +8,6 @@
     <string name="favorite">Yêu thích</string>
     <string name="search">Tìm kiếm</string>
     <string name="voice_search">Tìm kiếm bằng giọng nói</string>
+    <string name="talk_to_search">Nói để tìm</string>
+    <string name="search_hint">Tìm một câu</string>
 </resources>

@@ -8,4 +8,6 @@
     <string name="voice_search">音声検索</string>
     <string name="search">サーチ</string>
     <string name="favorite">お気に入り</string>
+    <string name="search_hint">フレーズを検索する</string>
+    <string name="talk_to_search">検索に話す</string>
 </resources>

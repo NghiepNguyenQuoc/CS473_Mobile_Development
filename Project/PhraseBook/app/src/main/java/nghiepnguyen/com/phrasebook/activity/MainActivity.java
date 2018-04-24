@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         if (isAlwaysExpanded()) {
             mSearchView.setIconifiedByDefault(false);
         } else {
-            mSearchView.setQueryHint("Search for phrase");
+            mSearchView.setQueryHint(getString(R.string.search_hint));
             searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
         mSearchView.setOnQueryTextListener(this);
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                "Speech recognition demo");
+                getString(R.string.talk_to_search));
         startActivityForResult(intent, Constants.VOICE_RECOGNITION_REQUEST_CODE);
     }
 
