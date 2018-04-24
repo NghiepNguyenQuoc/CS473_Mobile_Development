@@ -67,7 +67,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.BUNDLE_DATABASE, databaseName);
                     bundle.putInt(Constants.BUNDLE_LOCK, rowItem.getLock());
-                    bundle.putInt(MainActivity.VALUE_CATEGORY, categoryList.get(position).getId()); // Your
+                    bundle.putInt(Constants.BUNDLE_CATEGORY, categoryList.get(position).getId()); // Your
                     fragment.setArguments(bundle);
                     mContext.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.item_detail_container, fragment, "fragment")
@@ -76,7 +76,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                     Intent intent = new Intent(mContext, PhraseActivity.class);
                     intent.putExtra(Constants.BUNDLE_DATABASE, databaseName);
                     intent.putExtra(Constants.BUNDLE_LOCK, rowItem.getLock());
-                    intent.putExtra(MainActivity.VALUE_CATEGORY, categoryList.get(position).getId()); // Your
+                    intent.putExtra(Constants.BUNDLE_CATEGORY_TEXT, categoryList.get(position).getNamecategory());
+                    intent.putExtra(Constants.BUNDLE_CATEGORY, categoryList.get(position).getId()); // Your
                     mContext.startActivity(intent);
                 }
             }

@@ -59,7 +59,7 @@ public class PhraseDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         databaseName = getArguments().getString(Constants.BUNDLE_DATABASE);
-        valueCategory = getArguments().getInt(MainActivity.VALUE_CATEGORY);
+        valueCategory = getArguments().getInt(Constants.BUNDLE_CATEGORY);
         isLock = getArguments().getInt(Constants.BUNDLE_LOCK);
         databaseHelper = new DatabaseHelper(mContext, databaseName);
 

@@ -26,7 +26,6 @@ import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Category;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    public static final String VALUE_CATEGORY = "VALUE_CATEGORY";
     private boolean mTwoPane;
     private RecyclerView mRecyclerView;
     private CategoryAdapter adapter;
@@ -44,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
 
         toolbar = findViewById(R.id.toolbar);
-        mHeaderImageView = findViewById(R.id.header_imageview);
         setSupportActionBar(toolbar);
+        mHeaderImageView = findViewById(R.id.header_imageview);
         mRecyclerView = findViewById(R.id.item_list);
         assert mRecyclerView != null;
         mRecyclerView.setHasFixedSize(true);
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mRecyclerView.setLayoutManager(mLayoutManager);
         setupRecyclerView(Constants.DATABASE_VN_NAME, mTwoPane);
         mHeaderImageView.setImageResource(R.drawable.vietnam_landscape);
+        setTitle(getString(R.string.title_vietnamese));
     }
 
     @Override
@@ -75,20 +75,22 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             case R.id.vietnamese_item:
                 setupRecyclerView(Constants.DATABASE_VN_NAME, mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.vietnam_landscape);
+                setTitle(getString(R.string.title_vietnamese));
                 break;
             case R.id.chinese_item:
                 setupRecyclerView(Constants.DATABASE_TQ_NAME, mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.china_header);
+                setTitle(getString(R.string.title_chinese));
                 break;
             case R.id.japanese_item:
                 setupRecyclerView(Constants.DATABASE_NB_NAME, mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.japan_landscape);
-
+                setTitle(getString(R.string.title_japanese));
                 break;
             case R.id.korean_item:
                 setupRecyclerView(Constants.DATABASE_HQ_NAME, mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.korea_header);
-
+                setTitle(getString(R.string.title_korean));
                 break;
 
             case R.id.search:

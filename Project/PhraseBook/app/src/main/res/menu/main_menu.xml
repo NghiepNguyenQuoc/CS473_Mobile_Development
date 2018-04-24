@@ -3,20 +3,24 @@
 
     <item
         android:id="@+id/vietnamese_item"
+        android:icon="@drawable/vietnam_flag"
         android:orderInCategory="100"
         android:title="@string/language_vietnamese"
         app:showAsAction="withText" />
     <item
         android:id="@+id/chinese_item"
         android:layout_width="match_parent"
+        android:icon="@drawable/china_flag"
         android:title="@string/language_chinese"
         app:showAsAction="withText" />
     <item
         android:id="@+id/japanese_item"
+        android:icon="@drawable/japan_flag"
         android:title="@string/language_japanese"
         app:showAsAction="withText" />
     <item
         android:id="@+id/korean_item"
+        android:icon="@drawable/korea_flag"
         android:title="@string/language_korean"
         app:showAsAction="withText" />
 </menu>

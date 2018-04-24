@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">PhraseBook</string>
+    <string name="title_japanese">Learn Japanese Phrasebook</string>
+    <string name="title_chinese">Learn Chinese Mandarin Phrases</string>
+    <string name="title_korean">Learn Korean Phrasebook</string>
+    <string name="title_vietnamese">Learn Vietnamese Phrasebook</string>
     <string name="language_chinese">Chinese</string>
     <string name="language_japanese">Japanese</string>
     <string name="language_korean">Korean</string>

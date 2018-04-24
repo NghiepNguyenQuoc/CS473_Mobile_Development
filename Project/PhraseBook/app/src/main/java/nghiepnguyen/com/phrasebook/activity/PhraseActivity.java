@@ -12,12 +12,8 @@ import android.widget.SearchView;
 
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.common.Constants;
-import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
-import nghiepnguyen.com.phrasebook.model.Category;
 
 public class PhraseActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    int valueCategory;
-    DatabaseHelper databaseHelper;
     private SearchView mSearchView;
 
     @Override
@@ -31,10 +27,8 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
         actionBar.setDisplayUseLogoEnabled(false);
 
         Bundle extras = getIntent().getExtras();
-        String databaseName = extras.getString(Constants.BUNDLE_DATABASE);
-        databaseHelper = new DatabaseHelper(this, databaseName);
-        Category category = databaseHelper.getNameById(valueCategory);
-        actionBar.setTitle(category.getNamecategory());
+        String catagory = extras.getString(Constants.BUNDLE_CATEGORY_TEXT);
+        actionBar.setTitle(catagory);
 
         Fragment fragment = new PhraseDetailFragment();
         fragment.setArguments(extras);
