@@ -6,8 +6,10 @@ import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import java.io.File;
@@ -19,9 +21,9 @@ import java.util.List;
 
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.adapter.CategoryAdapter;
-import nghiepnguyen.com.phrasebook.model.Category;
 import nghiepnguyen.com.phrasebook.common.Constants;
 import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
+import nghiepnguyen.com.phrasebook.model.Category;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     public static final String VALUE_CATEGORY = "VALUE_CATEGORY";
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private CategoryAdapter adapter;
     private SearchView mSearchView;
     private String currentDB = null;
+    private Toolbar toolbar;
+    private ImageView mHeaderImageView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,12 +43,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             mTwoPane = true;
         }
 
+        toolbar = findViewById(R.id.toolbar);
+        mHeaderImageView = findViewById(R.id.header_imageview);
+        setSupportActionBar(toolbar);
         mRecyclerView = findViewById(R.id.item_list);
         assert mRecyclerView != null;
         mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         setupRecyclerView(Constants.DATABASE_VN_NAME, mTwoPane);
+        mHeaderImageView.setImageResource(R.drawable.vietnam_landscape);
     }
 
     @Override
@@ -66,15 +74,21 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         switch (item.getItemId()) {
             case R.id.vietnamese_item:
                 setupRecyclerView(Constants.DATABASE_VN_NAME, mTwoPane);
+                mHeaderImageView.setImageResource(R.drawable.vietnam_landscape);
                 break;
             case R.id.chinese_item:
                 setupRecyclerView(Constants.DATABASE_TQ_NAME, mTwoPane);
+                mHeaderImageView.setImageResource(R.drawable.china_header);
                 break;
             case R.id.japanese_item:
                 setupRecyclerView(Constants.DATABASE_NB_NAME, mTwoPane);
+                mHeaderImageView.setImageResource(R.drawable.japan_landscape);
+
                 break;
             case R.id.korean_item:
                 setupRecyclerView(Constants.DATABASE_HQ_NAME, mTwoPane);
+                mHeaderImageView.setImageResource(R.drawable.korea_header);
+
                 break;
 
             case R.id.search:
