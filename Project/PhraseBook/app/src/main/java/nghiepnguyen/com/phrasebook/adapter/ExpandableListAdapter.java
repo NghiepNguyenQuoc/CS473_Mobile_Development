@@ -20,10 +20,10 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Map;
 
-import nghiepnguyen.com.phrasebook.IExpandListViewExpanded;
+import nghiepnguyen.com.phrasebook.common.IExpandListViewExpanded;
 import nghiepnguyen.com.phrasebook.R;
-import nghiepnguyen.com.phrasebook.model.Constants;
-import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
+import nghiepnguyen.com.phrasebook.common.Constants;
+import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Phrase;
 
 

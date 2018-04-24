@@ -17,11 +17,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import nghiepnguyen.com.phrasebook.IExpandListViewExpanded;
-import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.adapter.ExpandableListAdapter;
-import nghiepnguyen.com.phrasebook.model.Constants;
-import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
+import nghiepnguyen.com.phrasebook.common.IExpandListViewExpanded;
+import nghiepnguyen.com.phrasebook.R;
+import nghiepnguyen.com.phrasebook.common.Constants;
+import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
 import nghiepnguyen.com.phrasebook.model.Phrase;
 
 import static android.app.Activity.RESULT_OK;

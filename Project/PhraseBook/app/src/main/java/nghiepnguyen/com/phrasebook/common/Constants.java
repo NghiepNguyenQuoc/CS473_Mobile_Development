@@ -1,4 +1,4 @@
-package nghiepnguyen.com.phrasebook.model;
+package nghiepnguyen.com.phrasebook.common;
 
 public class Constants {
     public static final String DATABASE_VN_NAME = "phrasebookVN.sqlite";

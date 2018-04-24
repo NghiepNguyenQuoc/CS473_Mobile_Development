@@ -12,8 +12,8 @@ import android.widget.SearchView;
 
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.model.Category;
-import nghiepnguyen.com.phrasebook.model.Constants;
-import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
+import nghiepnguyen.com.phrasebook.common.Constants;
+import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
 
 public class PhraseActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     int valueCategory;

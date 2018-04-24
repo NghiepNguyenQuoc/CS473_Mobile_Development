@@ -1,4 +1,4 @@
-package nghiepnguyen.com.phrasebook.model;
+package nghiepnguyen.com.phrasebook.common;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+
+import nghiepnguyen.com.phrasebook.model.Category;
+import nghiepnguyen.com.phrasebook.model.Phrase;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {

@@ -20,8 +20,8 @@ import java.util.List;
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.adapter.CategoryAdapter;
 import nghiepnguyen.com.phrasebook.model.Category;
-import nghiepnguyen.com.phrasebook.model.Constants;
-import nghiepnguyen.com.phrasebook.model.DatabaseHelper;
+import nghiepnguyen.com.phrasebook.common.Constants;
+import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     public static final String VALUE_CATEGORY = "VALUE_CATEGORY";

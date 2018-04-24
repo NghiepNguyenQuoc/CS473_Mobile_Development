@@ -17,7 +17,7 @@ import nghiepnguyen.com.phrasebook.activity.MainActivity;
 import nghiepnguyen.com.phrasebook.activity.PhraseActivity;
 import nghiepnguyen.com.phrasebook.activity.PhraseDetailFragment;
 import nghiepnguyen.com.phrasebook.model.Category;
-import nghiepnguyen.com.phrasebook.model.Constants;
+import nghiepnguyen.com.phrasebook.common.Constants;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private MainActivity mContext;
