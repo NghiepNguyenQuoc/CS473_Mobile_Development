@@ -11,9 +11,9 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 import nghiepnguyen.com.phrasebook.R;
-import nghiepnguyen.com.phrasebook.model.Category;
 import nghiepnguyen.com.phrasebook.common.Constants;
 import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
+import nghiepnguyen.com.phrasebook.model.Category;
 
 public class PhraseActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     int valueCategory;
@@ -64,6 +64,9 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
                 break;
             case R.id.favorite:
                 onOpenFavorite();
+                break;
+            case android.R.id.home:
+                finish();
                 break;
         }
         return true;
