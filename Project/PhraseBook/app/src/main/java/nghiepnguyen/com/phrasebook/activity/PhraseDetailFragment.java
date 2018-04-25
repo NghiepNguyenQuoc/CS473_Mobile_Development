@@ -62,10 +62,10 @@ public class PhraseDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        databaseName = getArguments().getString(Constants.BUNDLE_DATABASE);
-        language = getArguments().getString(Constants.BUNDLE_LANGUAGE);
-        valueCategory = getArguments().getInt(Constants.BUNDLE_CATEGORY);
-        isLock = getArguments().getInt(Constants.BUNDLE_LOCK);
+        databaseName = getArguments().getString(Constants.INSTANCE.getBUNDLE_DATABASE());
+        language = getArguments().getString(Constants.INSTANCE.getBUNDLE_LANGUAGE());
+        valueCategory = getArguments().getInt(Constants.INSTANCE.getBUNDLE_CATEGORY());
+        isLock = getArguments().getInt(Constants.INSTANCE.getBUNDLE_LOCK());
         databaseHelper = new DatabaseHelper(mContext, databaseName);
 
         View view = inflater.inflate(R.layout.fragment_phrase, container, false);
@@ -166,7 +166,7 @@ public class PhraseDetailFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.VOICE_RECOGNITION_REQUEST_CODE
+        if (requestCode == Constants.INSTANCE.getVOICE_RECOGNITION_REQUEST_CODE()
                 && resultCode == RESULT_OK) {
             ArrayList<String> matches = data
                     .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);

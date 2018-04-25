@@ -98,34 +98,34 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 if (mTwoPane) {
                     Fragment fragment = new PhraseDetailFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString(Constants.BUNDLE_DATABASE, databaseName);
-                    bundle.putString(Constants.BUNDLE_LANGUAGE, language);
-                    bundle.putInt(Constants.BUNDLE_LOCK, rowItem.getLock());
-                    bundle.putInt(Constants.BUNDLE_CATEGORY, categoryList.get(position).getId()); // Your
+                    bundle.putString(Constants.INSTANCE.getBUNDLE_DATABASE(), databaseName);
+                    bundle.putString(Constants.INSTANCE.getBUNDLE_LANGUAGE(), language);
+                    bundle.putInt(Constants.INSTANCE.getBUNDLE_LOCK(), rowItem.getLock());
+                    bundle.putInt(Constants.INSTANCE.getBUNDLE_CATEGORY(), categoryList.get(position).getId()); // Your
                     fragment.setArguments(bundle);
                     mContext.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.item_detail_container, fragment, "fragment")
                             .commit();
                 } else {
                     Intent intent = new Intent(mContext, PhraseActivity.class);
-                    intent.putExtra(Constants.BUNDLE_DATABASE, databaseName);
-                    intent.putExtra(Constants.BUNDLE_LANGUAGE, language);
-                    intent.putExtra(Constants.BUNDLE_LOCK, rowItem.getLock());
-                    intent.putExtra(Constants.BUNDLE_CATEGORY_TEXT, categoryList.get(position).getNamecategory());
-                    intent.putExtra(Constants.BUNDLE_CATEGORY, categoryList.get(position).getId()); // Your
+                    intent.putExtra(Constants.INSTANCE.getBUNDLE_DATABASE(), databaseName);
+                    intent.putExtra(Constants.INSTANCE.getBUNDLE_LANGUAGE(), language);
+                    intent.putExtra(Constants.INSTANCE.getBUNDLE_LOCK(), rowItem.getLock());
+                    intent.putExtra(Constants.INSTANCE.getBUNDLE_CATEGORY_TEXT(), categoryList.get(position).getNamecategory());
+                    intent.putExtra(Constants.INSTANCE.getBUNDLE_CATEGORY(), categoryList.get(position).getId()); // Your
                     mContext.startActivity(intent);
                 }
             }
         });
         if (position == 0) {
-            holder.itemView.setPadding(Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(5, mContext),
-                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(0, mContext));
+            holder.itemView.setPadding(Constants.INSTANCE.convertPixelsToDp(10, mContext), Constants.INSTANCE.convertPixelsToDp(5, mContext),
+                    Constants.INSTANCE.convertPixelsToDp(10, mContext), Constants.INSTANCE.convertPixelsToDp(0, mContext));
         } else if (position == getItemCount() - 1) {
-            holder.itemView.setPadding(Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(5, mContext),
-                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(5, mContext));
+            holder.itemView.setPadding(Constants.INSTANCE.convertPixelsToDp(10, mContext), Constants.INSTANCE.convertPixelsToDp(5, mContext),
+                    Constants.INSTANCE.convertPixelsToDp(10, mContext), Constants.INSTANCE.convertPixelsToDp(5, mContext));
         } else {
-            holder.itemView.setPadding(Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(5, mContext),
-                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(0, mContext));
+            holder.itemView.setPadding(Constants.INSTANCE.convertPixelsToDp(10, mContext), Constants.INSTANCE.convertPixelsToDp(5, mContext),
+                    Constants.INSTANCE.convertPixelsToDp(10, mContext), Constants.INSTANCE.convertPixelsToDp(0, mContext));
         }
     }
 

@@ -27,7 +27,7 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
         actionBar.setDisplayUseLogoEnabled(false);
 
         Bundle extras = getIntent().getExtras();
-        String catagory = extras.getString(Constants.BUNDLE_CATEGORY_TEXT);
+        String catagory = extras.getString(Constants.INSTANCE.getBUNDLE_CATEGORY_TEXT());
         actionBar.setTitle(catagory);
 
         Fragment fragment = new PhraseDetailFragment();
@@ -116,7 +116,7 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
                 getString(R.string.talk_to_search));
-        startActivityForResult(intent, Constants.VOICE_RECOGNITION_REQUEST_CODE);
+        startActivityForResult(intent, Constants.INSTANCE.getVOICE_RECOGNITION_REQUEST_CODE());
     }
 
 

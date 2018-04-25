@@ -79,17 +79,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 try {
                     String language = null, suffixName = null;
-                    if (databaseName.equals(Constants.DATABASE_VN_NAME)) {
-                        language = Constants.VIETNAMESE;
+                    if (databaseName.equals(Constants.INSTANCE.getDATABASE_VN_NAME())) {
+                        language = Constants.INSTANCE.getVIETNAMESE();
                         suffixName = "_m.ogg";
-                    } else if (databaseName.equals(Constants.DATABASE_HQ_NAME)) {
-                        language = Constants.KOREAN;
+                    } else if (databaseName.equals(Constants.INSTANCE.getDATABASE_HQ_NAME())) {
+                        language = Constants.INSTANCE.getKOREAN();
                         suffixName = "_f.ogg";
-                    } else if (databaseName.equals(Constants.DATABASE_NB_NAME)) {
-                        language = Constants.JAPANESE;
+                    } else if (databaseName.equals(Constants.INSTANCE.getDATABASE_NB_NAME())) {
+                        language = Constants.INSTANCE.getJAPANESE();
                         suffixName = "_f.ogg";
-                    } else if (databaseName.equals(Constants.DATABASE_TQ_NAME)) {
-                        language = Constants.CHINESE;
+                    } else if (databaseName.equals(Constants.INSTANCE.getDATABASE_TQ_NAME())) {
+                        language = Constants.INSTANCE.getCHINESE();
                         suffixName = "_m.ogg";
                     }
 

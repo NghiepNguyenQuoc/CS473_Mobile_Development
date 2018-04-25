@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        setupRecyclerView(Constants.DATABASE_VN_NAME, getString(R.string.language_vietnamese), mTwoPane);
+        setupRecyclerView(Constants.INSTANCE.getDATABASE_VN_NAME(), getString(R.string.language_vietnamese), mTwoPane);
         mHeaderImageView.setImageResource(R.drawable.vietnam_landscape);
     }
 
@@ -71,19 +71,19 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.vietnamese_item:
-                setupRecyclerView(Constants.DATABASE_VN_NAME, getString(R.string.language_vietnamese), mTwoPane);
+                setupRecyclerView(Constants.INSTANCE.getDATABASE_VN_NAME(), getString(R.string.language_vietnamese), mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.vietnam_landscape);
                 break;
             case R.id.chinese_item:
-                setupRecyclerView(Constants.DATABASE_TQ_NAME, getString(R.string.language_chinese), mTwoPane);
+                setupRecyclerView(Constants.INSTANCE.getDATABASE_TQ_NAME(), getString(R.string.language_chinese), mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.china_header);
                 break;
             case R.id.japanese_item:
-                setupRecyclerView(Constants.DATABASE_NB_NAME, getString(R.string.language_japanese), mTwoPane);
+                setupRecyclerView(Constants.INSTANCE.getDATABASE_NB_NAME(), getString(R.string.language_japanese), mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.japan_landscape);
                 break;
             case R.id.korean_item:
-                setupRecyclerView(Constants.DATABASE_HQ_NAME, getString(R.string.language_korean), mTwoPane);
+                setupRecyclerView(Constants.INSTANCE.getDATABASE_HQ_NAME(), getString(R.string.language_korean), mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.korea_header);
                 break;
             case R.id.search:
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
                 getString(R.string.talk_to_search));
-        startActivityForResult(intent, Constants.VOICE_RECOGNITION_REQUEST_CODE);
+        startActivityForResult(intent, Constants.INSTANCE.getVOICE_RECOGNITION_REQUEST_CODE());
     }
 
     @Override
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public void copyDatabase() {
         try {
             InputStream inputStream = getAssets().open(currentDB);
-            String outFileName = Constants.DBLOCATION + currentDB;
+            String outFileName = Constants.INSTANCE.getDBLOCATION() + currentDB;
             OutputStream outputStream = new FileOutputStream(outFileName);
             byte[] buff = new byte[1024];
             int lenght;
