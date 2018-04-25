@@ -115,9 +115,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         item.setText(phrase.getMean());
         item2.setText(phrase.getPronunciation());
-        if (longClickListener != null) {
-            longClickListener.onLongClickItem(phrase);
-        }
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (longClickListener != null) {
+                    longClickListener.onLongClickItem(phrase);
+                }
+                return false;
+            }
+        });
         convertView.setTag(phrase.getId());
         return convertView;
     }
