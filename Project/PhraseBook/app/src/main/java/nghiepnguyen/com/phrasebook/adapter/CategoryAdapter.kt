@@ -21,16 +21,15 @@ import nghiepnguyen.com.phrasebook.common.Constants
 import nghiepnguyen.com.phrasebook.common.MyURLSpan
 import nghiepnguyen.com.phrasebook.model.Category
 
-private class CategoryAdapter(private val mContext: MainActivity, private val categoryList: List<Category>,
-                              private val databaseName: String, private val language: String,
-                              private val mTwoPane: Boolean) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(private val mContext: MainActivity, private val categoryList: List<Category>,
+                             private val databaseName: String, private val language: String,
+                             private val mTwoPane: Boolean) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    internal inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         // each data item is just a string in this case
         var imageView: ImageView = view.findViewById(R.id.icon_imageview)
         var txtTitle: TextView = view.findViewById(R.id.category_textview)
         var txtDesciption: TextView = view.findViewById(R.id.description_textview)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
