@@ -2,20 +2,16 @@ package nghiepnguyen.com.phrasebook.adapter
 
 import android.app.Activity
 import android.content.Context
-import android.content.res.AssetFileDescriptor
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.MediaPlayer
-import android.media.MediaPlayer.OnCompletionListener
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.ImageView
 import android.widget.TextView
-
 import nghiepnguyen.com.phrasebook.R
 import nghiepnguyen.com.phrasebook.common.Constants
 import nghiepnguyen.com.phrasebook.common.DatabaseHelper
@@ -25,19 +21,14 @@ import nghiepnguyen.com.phrasebook.model.Phrase
 
 
 class ExpandableListAdapter(private val context: Context, private val laptops: List<Phrase>,
-                            private val laptopCollections: Map<Phrase, List<Phrase>>, private val databaseName: String, private val isLock: Int, private val expandListener: IExpandListViewExpanded,
+                            private val laptopCollections: Map<Phrase, List<Phrase>>, private val databaseName: String,
+                            private val isLock: Int, private val expandListener: IExpandListViewExpanded,
                             private val longClickListener: ILongClickItem?) : BaseExpandableListAdapter() {
-    private val TAG = ExpandableListAdapter::class.java.simpleName
     private var lastExpandedGroupPosition: Int = 0
-    private val databaseHelper: DatabaseHelper
-
-    init {
-        databaseHelper = DatabaseHelper(context, databaseName)
-    }
+    private val databaseHelper: DatabaseHelper = DatabaseHelper(context, databaseName)
 
     override fun getChild(groupPosition: Int, childPosition: Int): Any {
-        return laptopCollections[laptops[groupPosition]].get(
-                childPosition)
+        return laptopCollections[laptops[groupPosition]]!![childPosition]
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
@@ -79,7 +70,7 @@ class ExpandableListAdapter(private val context: Context, private val laptops: L
 
                 val mp = MediaPlayer()
                 val child = laptopCollections[laptops[groupPosition]]
-                val descriptor = context.getAssets().openFd(language + child.get(childPosition).sound + suffixName)
+                val descriptor = context.getAssets().openFd(language + child!![childPosition].sound + suffixName)
                 mp.setDataSource(descriptor.fileDescriptor, descriptor.startOffset, descriptor.length)
                 descriptor.close()
                 mp.setOnCompletionListener { mp -> mp.release() }
@@ -87,7 +78,7 @@ class ExpandableListAdapter(private val context: Context, private val laptops: L
                 mp.setVolume(1f, 1f)
                 mp.start()
             } catch (e: Exception) {
-                Log.e(TAG, "Can not play the sound")
+                Log.e("ExpandableListAdapter", "Can not play the sound")
             }
         }
 
@@ -102,7 +93,7 @@ class ExpandableListAdapter(private val context: Context, private val laptops: L
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        return laptopCollections[laptops[groupPosition]].size
+        return laptopCollections[laptops[groupPosition]]!!.size
     }
 
     override fun getGroup(groupPosition: Int): Any {
@@ -152,17 +143,11 @@ class ExpandableListAdapter(private val context: Context, private val laptops: L
     }
 
     override fun onGroupExpanded(groupPosition: Int) {
-        // TODO Auto-generated method stub
         super.onGroupExpanded(groupPosition)
         if (groupPosition != lastExpandedGroupPosition) {
             expandListener.onGroupExpanded(lastExpandedGroupPosition)
         }
         lastExpandedGroupPosition = groupPosition
-    }
-
-    override fun onGroupCollapsed(groupPosition: Int) {
-        // TODO Auto-generated method stub
-        super.onGroupCollapsed(groupPosition)
     }
 
     override fun hasStableIds(): Boolean {
