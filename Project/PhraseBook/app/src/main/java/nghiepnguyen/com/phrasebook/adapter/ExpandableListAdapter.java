@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
@@ -20,10 +19,11 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Map;
 
-import nghiepnguyen.com.phrasebook.common.IExpandListViewExpanded;
 import nghiepnguyen.com.phrasebook.R;
 import nghiepnguyen.com.phrasebook.common.Constants;
 import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
+import nghiepnguyen.com.phrasebook.common.IExpandListViewExpanded;
+import nghiepnguyen.com.phrasebook.common.ILongClickItem;
 import nghiepnguyen.com.phrasebook.model.Phrase;
 
 
@@ -34,20 +34,21 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<Phrase> laptops;
     private int lastExpandedGroupPosition;
     private DatabaseHelper databaseHelper;
-    private OnLongClickListener onlonglist;
     private String databaseName;
     private int isLock;
-    private IExpandListViewExpanded listener;
+    private IExpandListViewExpanded expandListener;
+    private ILongClickItem longClickListener;
 
     public ExpandableListAdapter(Context context, List<Phrase> laptops,
-                                 Map<Phrase, List<Phrase>> laptopCollections, OnLongClickListener onlongclick, String databaseName, int isLock, IExpandListViewExpanded listener) {
+                                 Map<Phrase, List<Phrase>> laptopCollections, String databaseName, int isLock, IExpandListViewExpanded expandListener,
+                                 ILongClickItem longClickListener) {
         this.context = context;
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
-        this.onlonglist = onlongclick;
         this.databaseName = databaseName;
         this.isLock = isLock;
-        this.listener = listener;
+        this.expandListener = expandListener;
+        this.longClickListener = longClickListener;
         databaseHelper = new DatabaseHelper(context, databaseName);
     }
 
@@ -62,7 +63,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     public View getChildView(final int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final Phrase laptop = (Phrase) getChild(groupPosition, childPosition);
+        final Phrase phrase = (Phrase) getChild(groupPosition, childPosition);
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
         if (convertView == null) {
@@ -112,12 +113,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        item.setText(laptop.getMean());
-        item2.setText(laptop.getPronunciation());
-        String str = "I have learned phrase VietNamese\n" + "Phrase: "
-                + laptop.getPhrase() + "\nPronuciation: " + laptop.getPronunciation() + "\nMean: " + laptop.getMean();
-        convertView.setTag(str);
-        convertView.setOnLongClickListener(onlonglist);
+        item.setText(phrase.getMean());
+        item2.setText(phrase.getPronunciation());
+        if (longClickListener != null) {
+            longClickListener.onLongClickItem(phrase);
+        }
+        convertView.setTag(phrase.getId());
         return convertView;
     }
 
@@ -177,7 +178,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         // TODO Auto-generated method stub
         super.onGroupExpanded(groupPosition);
         if (groupPosition != lastExpandedGroupPosition) {
-            listener.onGroupExpanded(lastExpandedGroupPosition);
+            expandListener.onGroupExpanded(lastExpandedGroupPosition);
         }
         lastExpandedGroupPosition = groupPosition;
     }

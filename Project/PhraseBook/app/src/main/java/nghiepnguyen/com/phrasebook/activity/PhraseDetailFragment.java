@@ -17,11 +17,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import nghiepnguyen.com.phrasebook.adapter.ExpandableListAdapter;
-import nghiepnguyen.com.phrasebook.common.IExpandListViewExpanded;
 import nghiepnguyen.com.phrasebook.R;
+import nghiepnguyen.com.phrasebook.adapter.ExpandableListAdapter;
 import nghiepnguyen.com.phrasebook.common.Constants;
 import nghiepnguyen.com.phrasebook.common.DatabaseHelper;
+import nghiepnguyen.com.phrasebook.common.IExpandListViewExpanded;
+import nghiepnguyen.com.phrasebook.common.ILongClickItem;
 import nghiepnguyen.com.phrasebook.model.Phrase;
 
 import static android.app.Activity.RESULT_OK;
@@ -37,6 +38,7 @@ public class PhraseDetailFragment extends Fragment {
     private int valueCategory;
     private DatabaseHelper databaseHelper;
     private String databaseName;
+    private String language;
     private int isLock;
 
     public PhraseDetailFragment() {
@@ -59,6 +61,7 @@ public class PhraseDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         databaseName = getArguments().getString(Constants.BUNDLE_DATABASE);
+        language = getArguments().getString(Constants.BUNDLE_LANGUAGE);
         valueCategory = getArguments().getInt(Constants.BUNDLE_CATEGORY);
         isLock = getArguments().getInt(Constants.BUNDLE_LOCK);
         databaseHelper = new DatabaseHelper(mContext, databaseName);
@@ -89,10 +92,25 @@ public class PhraseDetailFragment extends Fragment {
 
     private void fillDataToListView() {
         if (phraseList.size() > 0) {
-            ExpandableListAdapter expListAdapter = new ExpandableListAdapter(mContext, phraseList, phraseCollection, onlongclick, databaseName, isLock, new IExpandListViewExpanded() {
+            ExpandableListAdapter expListAdapter = new ExpandableListAdapter(mContext, phraseList, phraseCollection, databaseName, isLock, new IExpandListViewExpanded() {
                 @Override
                 public void onGroupExpanded(int position) {
                     expListView.collapseGroup(position);
+                }
+            }, new ILongClickItem() {
+                @Override
+                public void onLongClickItem(Phrase item) {
+                    String str = "I have learned " + language + " phrase \nPhrase: "
+                            + item.getPhrase() + "\nPronuciation: " + item.getPronunciation() + "\nMean: " + item.getMean();
+                    ;
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Let learn " + language + "with me!!!!!!");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, str);
+                    sendIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(sendIntent, getResources()
+                            .getText(R.string.app_name)));
+
                 }
             });
             expListView.setAdapter(expListAdapter);
@@ -125,21 +143,6 @@ public class PhraseDetailFragment extends Fragment {
         createCollection();
         fillDataToListView();
     }
-
-    View.OnLongClickListener onlongclick = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            String str = v.getTag().toString();
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, str);
-            sendIntent.setType("text/plain");
-            startActivity(Intent.createChooser(sendIntent, getResources()
-                    .getText(R.string.app_name)));
-
-            return true;
-        }
-    };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

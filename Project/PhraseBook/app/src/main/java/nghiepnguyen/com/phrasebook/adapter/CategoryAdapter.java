@@ -23,6 +23,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private MainActivity mContext;
     private List<Category> categoryList;
     private String databaseName;
+    private String language;
     private boolean mTwoPane;
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -37,10 +38,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
     }
 
-    public CategoryAdapter(MainActivity mParentActivity, List<Category> categoryList, String databaseName, boolean mTwoPane) {
+    public CategoryAdapter(MainActivity mParentActivity, List<Category> categoryList, String databaseName, String language, boolean mTwoPane) {
         this.mContext = mParentActivity;
         this.categoryList = categoryList;
         this.databaseName = databaseName;
+        this.language = language;
         this.mTwoPane = mTwoPane;
     }
 
@@ -66,6 +68,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                     Fragment fragment = new PhraseDetailFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.BUNDLE_DATABASE, databaseName);
+                    bundle.putString(Constants.BUNDLE_LANGUAGE, language);
                     bundle.putInt(Constants.BUNDLE_LOCK, rowItem.getLock());
                     bundle.putInt(Constants.BUNDLE_CATEGORY, categoryList.get(position).getId()); // Your
                     fragment.setArguments(bundle);
@@ -75,6 +78,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 } else {
                     Intent intent = new Intent(mContext, PhraseActivity.class);
                     intent.putExtra(Constants.BUNDLE_DATABASE, databaseName);
+                    intent.putExtra(Constants.BUNDLE_LANGUAGE, language);
                     intent.putExtra(Constants.BUNDLE_LOCK, rowItem.getLock());
                     intent.putExtra(Constants.BUNDLE_CATEGORY_TEXT, categoryList.get(position).getNamecategory());
                     intent.putExtra(Constants.BUNDLE_CATEGORY, categoryList.get(position).getId()); // Your

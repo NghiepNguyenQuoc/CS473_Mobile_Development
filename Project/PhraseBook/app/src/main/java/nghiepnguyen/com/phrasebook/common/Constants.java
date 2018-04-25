@@ -17,6 +17,7 @@ public class Constants {
     public static final String DBLOCATION = "/data/data/nghiepnguyen.com.phrasebook/databases/";
 
     public static final String BUNDLE_DATABASE = "DATABASE_NAME";
+    public static final String BUNDLE_LANGUAGE = "BUNDLE_LANGUAGE";
     public static final String BUNDLE_LOCK = "LOCK";
     public static final String BUNDLE_CATEGORY = "BUNDLE_CATEGORY";
     public static final String BUNDLE_CATEGORY_TEXT = "BUNDLE_CATEGORY_TEXT";

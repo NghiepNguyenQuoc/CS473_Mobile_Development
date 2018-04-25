@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        setupRecyclerView(Constants.DATABASE_VN_NAME, mTwoPane);
+        setupRecyclerView(Constants.DATABASE_VN_NAME, getString(R.string.language_vietnamese), mTwoPane);
         mHeaderImageView.setImageResource(R.drawable.vietnam_landscape);
         setTitle(getString(R.string.title_vietnamese));
     }
@@ -73,22 +73,22 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.vietnamese_item:
-                setupRecyclerView(Constants.DATABASE_VN_NAME, mTwoPane);
+                setupRecyclerView(Constants.DATABASE_VN_NAME, getString(R.string.language_vietnamese), mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.vietnam_landscape);
                 setTitle(getString(R.string.title_vietnamese));
                 break;
             case R.id.chinese_item:
-                setupRecyclerView(Constants.DATABASE_TQ_NAME, mTwoPane);
+                setupRecyclerView(Constants.DATABASE_TQ_NAME, getString(R.string.language_chinese), mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.china_header);
                 setTitle(getString(R.string.title_chinese));
                 break;
             case R.id.japanese_item:
-                setupRecyclerView(Constants.DATABASE_NB_NAME, mTwoPane);
+                setupRecyclerView(Constants.DATABASE_NB_NAME, getString(R.string.language_japanese), mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.japan_landscape);
                 setTitle(getString(R.string.title_japanese));
                 break;
             case R.id.korean_item:
-                setupRecyclerView(Constants.DATABASE_HQ_NAME, mTwoPane);
+                setupRecyclerView(Constants.DATABASE_HQ_NAME, getString(R.string.language_korean), mTwoPane);
                 mHeaderImageView.setImageResource(R.drawable.korea_header);
                 setTitle(getString(R.string.title_korean));
                 break;
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return true;
     }
 
-    private void setupRecyclerView(String databaseName, boolean mTwoPane) {
+    private void setupRecyclerView(String databaseName, String language, boolean mTwoPane) {
         currentDB = databaseName;
         DatabaseHelper databaseHelper = new DatabaseHelper(this, databaseName);
         File database = getDatabasePath(databaseName);
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
 
         List<Category> rowItems = databaseHelper.GetAllCategory();
-        adapter = new CategoryAdapter(this, rowItems, databaseName, mTwoPane);
+        adapter = new CategoryAdapter(this, rowItems, databaseName, language, mTwoPane);
         mRecyclerView.setAdapter(adapter);
     }
 
