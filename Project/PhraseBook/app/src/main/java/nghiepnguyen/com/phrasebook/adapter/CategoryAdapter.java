@@ -117,13 +117,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 }
             }
         });
-
-        if (position == getItemCount() - 1) {
-            holder.itemView.setPadding(Constants.convertPixelsToDp(5, mContext), Constants.convertPixelsToDp(5, mContext),
-                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(10, mContext));
+        if (position == 0) {
+            holder.itemView.setPadding(Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(5, mContext),
+                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(0, mContext));
+        } else if (position == getItemCount() - 1) {
+            holder.itemView.setPadding(Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(5, mContext),
+                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(5, mContext));
         } else {
-            holder.itemView.setPadding(Constants.convertPixelsToDp(5, mContext), Constants.convertPixelsToDp(5, mContext),
-                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(00, mContext));
+            holder.itemView.setPadding(Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(5, mContext),
+                    Constants.convertPixelsToDp(10, mContext), Constants.convertPixelsToDp(0, mContext));
         }
     }
 
