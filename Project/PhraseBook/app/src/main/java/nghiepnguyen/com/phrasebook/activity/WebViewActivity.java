@@ -44,6 +44,7 @@ public class WebViewActivity extends AppCompatActivity {
         loadingWebview = findViewById(R.id.loading_webview);
         loadingWebview.setVisibility(View.VISIBLE);
         webView.loadUrl(strUrl);
+        setTitle(strUrl);
         webView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript Support
         webView.setWebViewClient(new WebViewClient() {
             @Override

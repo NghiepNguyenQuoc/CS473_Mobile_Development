@@ -2,6 +2,7 @@ package nghiepnguyen.com.phrasebook.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
@@ -18,9 +19,14 @@ public class MyURLSpan extends ClickableSpan {
 
     @Override
     public void onClick(View arg0) {
-
-        Intent i = new Intent(mContext, WebViewActivity.class);
-        i.putExtra(Constants.BUNDLE_LINK, url);
-        mContext.startActivity(i);
+        if (url.startsWith("http")) {
+            Intent i = new Intent(mContext, WebViewActivity.class);
+            i.putExtra(Constants.BUNDLE_LINK, url);
+            mContext.startActivity(i);
+        } else if (url.startsWith("tel")) {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse(url));
+            mContext.startActivity(intent);
+        }
     }
 }

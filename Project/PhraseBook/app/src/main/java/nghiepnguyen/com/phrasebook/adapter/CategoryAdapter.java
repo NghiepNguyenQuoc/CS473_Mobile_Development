@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -72,7 +73,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             holder.txtDesciption.setVisibility(View.GONE);
         } else {
             holder.txtDesciption.setVisibility(View.VISIBLE);
-            holder.txtDesciption.setText(rowItem.getDescription());
+            holder.txtDesciption.setText(Html.fromHtml(rowItem.getDescription()));
             CharSequence text = holder.txtDesciption.getText();
             if (text instanceof Spannable) {
                 int end = text.length();
