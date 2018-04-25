@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
+import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import nghiepnguyen.com.phrasebook.activity.MainActivity;
 import nghiepnguyen.com.phrasebook.activity.PhraseActivity;
 import nghiepnguyen.com.phrasebook.activity.PhraseDetailFragment;
 import nghiepnguyen.com.phrasebook.common.Constants;
+import nghiepnguyen.com.phrasebook.common.MyURLSpan;
 import nghiepnguyen.com.phrasebook.model.Category;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
@@ -30,10 +35,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         // each data item is just a string in this case
         ImageView imageView;
         TextView txtTitle;
+        TextView txtDesciption;
 
         ViewHolder(View view) {
             super(view);
             txtTitle = view.findViewById(R.id.category_textview);
+            txtDesciption = view.findViewById(R.id.description_textview);
             imageView = view.findViewById(R.id.icon_imageview);
         }
     }
@@ -61,6 +68,29 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.txtTitle.setText(rowItem.getNamecategory());
         holder.imageView.setImageDrawable(mContext.getResources().getDrawable(
                 mContext.getResources().getIdentifier("drawable/" + rowItem.getImg(), "drawable", mContext.getPackageName())));
+        if (TextUtils.isEmpty(rowItem.getDescription())) {
+            holder.txtDesciption.setVisibility(View.GONE);
+        } else {
+            holder.txtDesciption.setVisibility(View.VISIBLE);
+            holder.txtDesciption.setText(rowItem.getDescription());
+            CharSequence text = holder.txtDesciption.getText();
+            if (text instanceof Spannable) {
+                int end = text.length();
+                Spannable sp = (Spannable) text;
+                URLSpan urls[] = sp.getSpans(0, end, URLSpan.class);
+                SpannableStringBuilder style = new SpannableStringBuilder(text);
+                style.clearSpans();
+                for (URLSpan urlSpan : urls) {
+                    MyURLSpan myURLSpan = new MyURLSpan(mContext, urlSpan.getURL());
+                    style.setSpan(myURLSpan, sp.getSpanStart(urlSpan),
+                            sp.getSpanEnd(urlSpan),
+                            Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+
+                }
+                holder.txtDesciption.setText(style);
+            }
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

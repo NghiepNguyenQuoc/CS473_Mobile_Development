@@ -19,6 +19,7 @@ public class Constants {
     public static final String BUNDLE_DATABASE = "DATABASE_NAME";
     public static final String BUNDLE_LANGUAGE = "BUNDLE_LANGUAGE";
     public static final String BUNDLE_LOCK = "LOCK";
+    public static final String BUNDLE_LINK = "BUNDLE_LINK";
     public static final String BUNDLE_CATEGORY = "BUNDLE_CATEGORY";
     public static final String BUNDLE_CATEGORY_TEXT = "BUNDLE_CATEGORY_TEXT";
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
