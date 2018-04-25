@@ -60,7 +60,16 @@ public class PhraseActivity extends AppCompatActivity implements SearchView.OnQu
                 onOpenFavorite();
                 break;
             case android.R.id.home:
-                finish();
+                PhraseDetailFragment myFragment = (PhraseDetailFragment) getSupportFragmentManager().findFragmentByTag("fragment");
+                if (myFragment != null && myFragment.isVisible()) {
+                    if (myFragment.isEmpty()) {
+                        myFragment.createCollection();
+                        myFragment.fillDataToListView();
+                        myFragment.setEmpty(false);
+                    } else {
+                        finish();
+                    }
+                }
                 break;
         }
         return true;

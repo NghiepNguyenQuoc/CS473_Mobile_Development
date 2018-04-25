@@ -35,11 +35,13 @@ public class PhraseDetailFragment extends Fragment {
     private List<Phrase> phraseList;
     private Map<Phrase, List<Phrase>> phraseCollection;
     private ExpandableListView expListView;
+    private View emptyView;
     private int valueCategory;
     private DatabaseHelper databaseHelper;
     private String databaseName;
     private String language;
     private int isLock;
+    private boolean isEmpty = false;
 
     public PhraseDetailFragment() {
         // Required empty public constructor
@@ -68,6 +70,7 @@ public class PhraseDetailFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_phrase, container, false);
         expListView = view.findViewById(R.id.phrase_expandable_listview);
+        emptyView = view.findViewById(R.id.empty_view);
 
         createGroupList();
         createCollection();
@@ -81,7 +84,7 @@ public class PhraseDetailFragment extends Fragment {
         phraseList.addAll(listTemp);
     }
 
-    private void createCollection() {
+    public void createCollection() {
         phraseCollection = new LinkedHashMap<>();
         for (Phrase item : phraseList) {
             List<Phrase> childList = new ArrayList<>();
@@ -90,7 +93,7 @@ public class PhraseDetailFragment extends Fragment {
         }
     }
 
-    private void fillDataToListView() {
+    public void fillDataToListView() {
         if (phraseList.size() > 0) {
             ExpandableListAdapter expListAdapter = new ExpandableListAdapter(mContext, phraseList, phraseCollection, databaseName, isLock, new IExpandListViewExpanded() {
                 @Override
@@ -122,26 +125,42 @@ public class PhraseDetailFragment extends Fragment {
             });
             expListAdapter.notifyDataSetChanged();
 
-        } else {
-            //setContentView(R.layout.activity_null);
         }
     }
 
     public void onQueryTextChange(String newText) {
-        phraseList = new ArrayList<>();
         List<Phrase> listTemp = databaseHelper.GetAllPhraseOfCategoryByName(
                 valueCategory, newText);
-        phraseList.addAll(listTemp);
-        createCollection();
-        fillDataToListView();
+        if (listTemp == null || listTemp.size() == 0) {
+            emptyView.setVisibility(View.VISIBLE);
+            expListView.setVisibility(View.GONE);
+            isEmpty = true;
+        } else {
+            isEmpty = false;
+            phraseList = new ArrayList<>();
+            emptyView.setVisibility(View.GONE);
+            expListView.setVisibility(View.VISIBLE);
+            phraseList.addAll(listTemp);
+            createCollection();
+            fillDataToListView();
+        }
     }
 
     public void onSeletedFavorite() {
-        phraseList = new ArrayList<>();
         List<Phrase> listTemp = databaseHelper.GetAllPhraseFavoriteOfCategory();
-        phraseList.addAll(listTemp);
-        createCollection();
-        fillDataToListView();
+        if (listTemp == null || listTemp.size() == 0) {
+            emptyView.setVisibility(View.VISIBLE);
+            expListView.setVisibility(View.GONE);
+            isEmpty = true;
+        } else {
+            isEmpty = false;
+            phraseList = new ArrayList<>();
+            emptyView.setVisibility(View.GONE);
+            expListView.setVisibility(View.VISIBLE);
+            phraseList.addAll(listTemp);
+            createCollection();
+            fillDataToListView();
+        }
     }
 
     @Override
@@ -155,5 +174,13 @@ public class PhraseDetailFragment extends Fragment {
             Toast.makeText(mContext, "You said:\" " + matches.get(0) + " \"",
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    public boolean isEmpty() {
+        return isEmpty;
+    }
+
+    public void setEmpty(boolean empty) {
+        isEmpty = empty;
     }
 }
