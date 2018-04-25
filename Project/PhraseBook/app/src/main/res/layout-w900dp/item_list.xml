@@ -7,12 +7,7 @@
     android:orientation="horizontal"
     android:showDividers="middle">
 
-    <!--
-    This layout is a two-pane layout for the Items
-    master/detail flow.
-
-    -->
-
+    <!--This layout is a two-pane layout for the Items master/detail flow.-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/item_list"
         android:layout_width="350dp"

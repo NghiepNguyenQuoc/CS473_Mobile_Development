@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@android:color/white">
 
     <ExpandableListView
         android:id="@+id/phrase_expandable_listview"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="match_parent" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/empty_view"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/no_results_found"
+        android:visibility="gone" />
+</RelativeLayout>
