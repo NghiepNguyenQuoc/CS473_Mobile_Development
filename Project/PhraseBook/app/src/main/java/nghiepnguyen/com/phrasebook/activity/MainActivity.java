@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             copyDatabase();
         }
 
-        List<Category> rowItems = databaseHelper.GetAllCategory();
+        List<Category> rowItems = databaseHelper.getAllCategory();
         adapter = new CategoryAdapter(this, rowItems, databaseName, language, mTwoPane);
         mRecyclerView.setAdapter(adapter);
     }

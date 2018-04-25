@@ -80,7 +80,7 @@ public class PhraseDetailFragment extends Fragment {
 
     private void createGroupList() {
         phraseList = new ArrayList<>();
-        List<Phrase> listTemp = databaseHelper.GetAllPhraseOfCategory(valueCategory);
+        List<Phrase> listTemp = databaseHelper.getAllPhraseOfCategory(valueCategory);
         phraseList.addAll(listTemp);
     }
 
@@ -129,7 +129,7 @@ public class PhraseDetailFragment extends Fragment {
     }
 
     public void onQueryTextChange(String newText) {
-        List<Phrase> listTemp = databaseHelper.GetAllPhraseOfCategoryByName(
+        List<Phrase> listTemp = databaseHelper.getAllPhraseOfCategoryByName(
                 valueCategory, newText);
         if (listTemp == null || listTemp.size() == 0) {
             emptyView.setVisibility(View.VISIBLE);
@@ -147,7 +147,7 @@ public class PhraseDetailFragment extends Fragment {
     }
 
     public void onSeletedFavorite() {
-        List<Phrase> listTemp = databaseHelper.GetAllPhraseFavoriteOfCategory();
+        List<Phrase> listTemp = databaseHelper.getAllPhraseFavoriteOfCategory();
         if (listTemp == null || listTemp.size() == 0) {
             emptyView.setVisibility(View.VISIBLE);
             expListView.setVisibility(View.GONE);
