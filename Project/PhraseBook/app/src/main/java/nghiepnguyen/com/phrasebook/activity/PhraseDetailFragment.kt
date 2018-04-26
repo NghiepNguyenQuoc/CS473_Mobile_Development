@@ -9,8 +9,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ExpandableListView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_phrase.*
 import nghiepnguyen.com.phrasebook.R
 import nghiepnguyen.com.phrasebook.adapter.ExpandableListAdapter
 import nghiepnguyen.com.phrasebook.common.Constants
@@ -27,22 +27,22 @@ class PhraseDetailFragment : Fragment() {
     private var mContext: Context? = null
     private var phraseList: MutableList<Phrase>? = null
     private var phraseCollection: MutableMap<Phrase, List<Phrase>>? = null
+    private var expListView: ExpandableListView? = null
+    private var emptyView: View? = null
     private var valueCategory: Int = 0
     private var databaseHelper: DatabaseHelper? = null
     private var databaseName: String? = null
     private var language: String? = null
     private var isLock: Int = 0
     var isEmpty = false
-    private val expandableListview by lazy {
-        phrase_expandable_listview
-    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         this.mContext = context
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         databaseName = arguments!!.getString(Constants.BUNDLE_DATABASE)
         language = arguments!!.getString(Constants.BUNDLE_LANGUAGE)
@@ -50,11 +50,14 @@ class PhraseDetailFragment : Fragment() {
         isLock = arguments!!.getInt(Constants.BUNDLE_LOCK)
         databaseHelper = DatabaseHelper(mContext!!, databaseName!!)
 
+        val view = inflater.inflate(R.layout.fragment_phrase, container, false)
+        expListView = view.findViewById(R.id.phrase_expandable_listview)
+        emptyView = view.findViewById(R.id.empty_view)
 
         createGroupList()
         createCollection()
         fillDataToListView()
-        return container?.inflate(R.layout.fragment_phrase)
+        return view
     }
 
     private fun createGroupList() {
@@ -76,7 +79,7 @@ class PhraseDetailFragment : Fragment() {
         if (phraseList!!.size > 0) {
             val expListAdapter = ExpandableListAdapter(mContext!!, phraseList!!, phraseCollection!!, databaseName!!, isLock, object : IExpandListViewExpanded {
                 override fun onGroupExpanded(position: Int) {
-                    expandableListview!!.collapseGroup(position)
+                    expListView!!.collapseGroup(position)
                 }
             }, object : ILongClickItem {
                 override fun onLongClickItem(item: Phrase) {
@@ -92,7 +95,7 @@ class PhraseDetailFragment : Fragment() {
 
                 }
             })
-            expandableListview!!.setAdapter(expListAdapter)
+            expListView!!.setAdapter(expListAdapter)
             expListAdapter.notifyDataSetChanged()
 
         }
@@ -102,14 +105,14 @@ class PhraseDetailFragment : Fragment() {
         val listTemp = databaseHelper!!.getAllPhraseOfCategoryByName(
                 valueCategory, newText)
         if (listTemp.size == 0) {
-            expandableListview!!.visibility = View.VISIBLE
-            empty_view!!.visibility = View.GONE
+            emptyView!!.visibility = View.VISIBLE
+            expListView!!.visibility = View.GONE
             isEmpty = true
         } else {
             isEmpty = false
             phraseList = ArrayList()
-            expandableListview!!.visibility = View.GONE
-            empty_view!!.visibility = View.VISIBLE
+            emptyView!!.visibility = View.GONE
+            expListView!!.visibility = View.VISIBLE
             phraseList!!.addAll(listTemp)
             createCollection()
             fillDataToListView()
@@ -119,14 +122,14 @@ class PhraseDetailFragment : Fragment() {
     fun onSeletedFavorite() {
         val listTemp = databaseHelper!!.getAllPhraseFavoriteOfCategory()
         if (listTemp.size == 0) {
-            expandableListview!!.visibility = View.VISIBLE
-            empty_view!!.visibility = View.GONE
+            emptyView!!.visibility = View.VISIBLE
+            expListView!!.visibility = View.GONE
             isEmpty = true
         } else {
             isEmpty = false
             phraseList = ArrayList()
-            expandableListview!!.visibility = View.GONE
-            empty_view!!.visibility = View.VISIBLE
+            emptyView!!.visibility = View.GONE
+            expListView!!.visibility = View.VISIBLE
             phraseList!!.addAll(listTemp)
             createCollection()
             fillDataToListView()
