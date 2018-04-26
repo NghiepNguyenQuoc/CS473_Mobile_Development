@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.ImageView
 import android.widget.SearchView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_list.*
 import nghiepnguyen.com.phrasebook.R
 import nghiepnguyen.com.phrasebook.adapter.CategoryAdapter
 import nghiepnguyen.com.phrasebook.common.Constants
@@ -21,40 +19,31 @@ import java.io.IOException
 
 open class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private var mTwoPane: Boolean = false
-    private var mRecyclerView: RecyclerView? = null
     private var adapter: CategoryAdapter? = null
-    private var mSearchView: SearchView? = null
     private var currentDB: String? = null
-    private var mHeaderImageView: ImageView? = null
-
-    private val isAlwaysExpanded: Boolean
-        get() = false
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (findViewById<View>(R.id.item_detail_container) != null) {
+        if (item_detail_container != null) {
             mTwoPane = true
         }
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        mHeaderImageView = findViewById(R.id.header_imageview)
-        mRecyclerView = findViewById(R.id.item_list)
-        assert(mRecyclerView != null)
-        mRecyclerView!!.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(true)
         val mLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        mRecyclerView!!.layoutManager = mLayoutManager
+        recyclerView.layoutManager = mLayoutManager
         setupRecyclerView(Constants.DATABASE_VN_NAME, getString(R.string.language_vietnamese), mTwoPane)
-        mHeaderImageView!!.setImageResource(R.drawable.vietnam_landscape)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         if (mTwoPane) {
             menuInflater.inflate(R.menu.main_menu_2, menu)
             val searchItem = menu.findItem(R.id.search)
-            mSearchView = searchItem.actionView as SearchView
-            setupSearchView(searchItem)
+            val searchView: SearchView = searchItem.actionView as SearchView
+            searchView.queryHint = getString(R.string.search_hint)
+            searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+            searchView.setOnQueryTextListener(this)
         } else {
             menuInflater.inflate(R.menu.main_menu, menu)
         }
@@ -66,19 +55,19 @@ open class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         when (item.itemId) {
             R.id.vietnamese_item -> {
                 setupRecyclerView(Constants.DATABASE_VN_NAME, getString(R.string.language_vietnamese), mTwoPane)
-                mHeaderImageView!!.setImageResource(R.drawable.vietnam_landscape)
+                header_imageview!!.setImageResource(R.drawable.vietnam_landscape)
             }
             R.id.chinese_item -> {
                 setupRecyclerView(Constants.DATABASE_TQ_NAME, getString(R.string.language_chinese), mTwoPane)
-                mHeaderImageView!!.setImageResource(R.drawable.china_header)
+                header_imageview!!.setImageResource(R.drawable.china_header)
             }
             R.id.japanese_item -> {
                 setupRecyclerView(Constants.DATABASE_NB_NAME, getString(R.string.language_japanese), mTwoPane)
-                mHeaderImageView!!.setImageResource(R.drawable.japan_landscape)
+                header_imageview!!.setImageResource(R.drawable.japan_landscape)
             }
             R.id.korean_item -> {
                 setupRecyclerView(Constants.DATABASE_HQ_NAME, getString(R.string.language_korean), mTwoPane)
-                mHeaderImageView!!.setImageResource(R.drawable.korea_header)
+                header_imageview!!.setImageResource(R.drawable.korea_header)
             }
             R.id.search -> {
             }
@@ -99,17 +88,7 @@ open class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         val rowItems = databaseHelper.getAllCategory()
         adapter = CategoryAdapter(this, rowItems, databaseName, language, mTwoPane)
-        mRecyclerView!!.adapter = adapter
-    }
-
-    private fun setupSearchView(searchItem: MenuItem) {
-        if (isAlwaysExpanded) {
-            mSearchView!!.setIconifiedByDefault(false)
-        } else {
-            mSearchView!!.queryHint = getString(R.string.search_hint)
-            searchItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        }
-        mSearchView!!.setOnQueryTextListener(this)
+        recyclerView!!.adapter = adapter
     }
 
     private fun startVoiceRecognitionActivity() {
